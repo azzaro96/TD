@@ -22,6 +22,14 @@ public class Tile {
 	}
 	
 	
+	public int getXPlace(){
+		return (int) x/32; 
+	}
+	
+	public int getYPlace(){
+		return (int) y/32;
+	}
+	
 	public void Draw() {
 		DrawQuadTex(texture, x, y, width, height);
 	}

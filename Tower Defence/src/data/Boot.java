@@ -34,7 +34,7 @@ public class Boot {
 		};
 		
 		TileGrid grid = new TileGrid(map);
-		Enemy e = new Enemy(enemy, grid.getTile(6, 10), 32, 32, 4);
+		Enemy e = new Enemy(enemy, grid.getTile(3, 0), grid, 32, 32, 10);
 		Wave wave = new Wave(6, e);
 		Player player = new Player(grid);
 		while(!Display.isCloseRequested()){

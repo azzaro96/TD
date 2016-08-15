@@ -3,8 +3,9 @@ package data;
 public enum TileType {
 	
 	Land("Land", true),
-	Road("Road", false);
-
+	Road("Road", false),
+	NULL("Land", false);
+	
 	String tileName;
 	boolean buildable;
 	
