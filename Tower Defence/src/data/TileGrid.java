@@ -34,4 +34,8 @@ public class TileGrid {
 			}
 		}
 	}
+	
+	public Tile getTile(int x, int y){
+		return map[x][y];
+	}
 }

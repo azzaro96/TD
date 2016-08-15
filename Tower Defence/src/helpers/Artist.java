@@ -29,7 +29,7 @@ public class Artist {
 
 	public static final int WIDTH = 640, HEIGHT = 480;
 	
-	public static Texture land, road;
+	public static Texture land, road, enemy;
 	
 	public static void BeginSession() {
 
@@ -47,9 +47,12 @@ public class Artist {
 		glOrtho(0, WIDTH, HEIGHT, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
 		land = QuickLoad("Land");
 	    road = QuickLoad("Road");
+	    enemy = QuickLoad("creep");
 	}
 
 	public static void DrawQuad(float x, float y, float width, float height) {

@@ -34,11 +34,13 @@ public class Boot {
 		};
 		
 		TileGrid grid = new TileGrid(map);
-	
+		Enemy e = new Enemy(enemy, grid.getTile(6, 10), 32, 32, 4);
 		while(!Display.isCloseRequested()){
+			Clock.update();
+			e.Update();
 			
 			grid.Draw();
-			
+			e.Draw();
 			Display.update();
 			Display.sync(60);
 		}
