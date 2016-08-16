@@ -37,19 +37,15 @@ public class Boot {
 		Enemy e = new Enemy(enemy, grid.getTile(3, 0), grid, 32, 32, 10);
 		Wave wave = new Wave(6, e);
 		Player player = new Player(grid);		
-		TowerCannon t = new TowerCannon(QuickLoad("TowerBase"), grid.getTile(4, 2), 10);
-		TowerCannon t1 = new TowerCannon(QuickLoad("TowerGun"), grid.getTile(4, 2), 10);
-		TowerCannon t2 = new TowerCannon(QuickLoad("towerBaseGreen"), grid.getTile(5, 12), 10);
-		TowerCannon t3 = new TowerCannon(QuickLoad("towerGunGreen"), grid.getTile(5, 12), 10);
+		TowerCannon t = new TowerCannon(QuickLoad("TowerBase"), QuickLoad("TowerGun"), grid.getTile(4, 2), 10);
+		TowerCannon t2 = new TowerCannon(QuickLoad("towerBaseGreen"), QuickLoad("towerGunGreen"), grid.getTile(5, 12), 10);
 		
 		while(!Display.isCloseRequested()){
 			Clock.update();
 			
 			grid.Draw();			
-			t.draw();
-			t1.draw();
+			t.draw();	
 			t2.draw();
-			t3.draw();
 			
 			wave.Update();
 			player.Update();

@@ -8,13 +8,17 @@ public class TowerCannon {
 	
 	private float x, y;
 	private int width, height, damage;
-	private Texture texture;
+	private Texture baseTexture, cannonTexture;
 	private Tile startTile;
 	
-	public TowerCannon(Texture t, Tile startTile, int dmg) {
+	//konstruktor prima dve teksture umesto jedna jer se razlikuje cannon
+	//i draw crta dva puta
+	
+	public TowerCannon(Texture t1, Texture t2, Tile startTile, int dmg) {
 		this.x = startTile.getX();
 		this.y = startTile.getY();
-		this.texture = t;
+		this.baseTexture = t1;
+		this.cannonTexture = t2;
 		this.startTile = startTile;
 		damage = dmg;
 		width = (int)startTile.getWidth();
@@ -26,6 +30,7 @@ public class TowerCannon {
 	}
 	
 	public void draw() {
-		DrawQuadTex(texture, x, y, width, height);
+		DrawQuadTex(baseTexture, x, y, width, height);
+		DrawQuadTex(cannonTexture, x, y, width, height);
 	}
 }
