@@ -15,7 +15,7 @@ public class Enemy {
 	private Tile startTile;
 	private TileGrid grid;
 	private ArrayList<CheckPoint> checkPoints;
-	private boolean first = true;
+	private boolean first = true, alive = true;
 	private int[] directions;
 
 	public Enemy(Texture t, Tile startTile, TileGrid grid, int width, int height, float speed) {
@@ -71,15 +71,10 @@ public class Enemy {
 		}
 	}
 
-	/*
-	 * public boolean pathContinues(){ boolean answer = true;
-	 * 
-	 * Tile myTile = grid.getTile((int) (x/32),(int) (y/32)); Tile nextTile =
-	 * grid.getTile((int) (x/32) + 1,(int) (y/32));
-	 * 
-	 * if (myTile.getType() != nextTile.getType()) return false; return answer;
-	 * }
-	 */
+	public void Die(){
+		alive = false;
+	}
+	
 	public void Draw() {
 		DrawQuadTex(texture, x, y, width, height);
 	}
@@ -90,7 +85,7 @@ public class Enemy {
 		else {
 			if (CheckPointReached()) {
 				if(currentCheckPoint + 1 == checkPoints.size()){
-					
+					Die();
 				}else
 				currentCheckPoint++;
 			} else {
@@ -229,5 +224,8 @@ public class Enemy {
 	public void setGrid(TileGrid grid) {
 		this.grid = grid;
 	}
-
+	
+	public boolean isAlive(){
+		return alive;
+	}
 }
