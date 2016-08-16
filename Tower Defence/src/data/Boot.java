@@ -44,8 +44,8 @@ public class Boot {
 			Clock.update();
 			
 			grid.Draw();			
-			t.update();	
-			t2.update();
+			t.draw(); //update	
+			t2.draw();
 			
 			wave.Update();
 			player.Update();
