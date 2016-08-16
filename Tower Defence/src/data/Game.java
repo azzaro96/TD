@@ -20,7 +20,7 @@ public class Game {
 		waveManager = new WaveManager(
 				new Enemy(QuickLoad("creep"), grid.getTile(3, 0), grid, 32, 32, 240), 
 				0.5f,
-				10);
+				20);
 		
 		player = new Player(grid, waveManager);
 		
