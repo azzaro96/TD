@@ -33,22 +33,12 @@ public class Boot {
 				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		};
 		
-		TileGrid grid = new TileGrid(map);
-		Enemy e = new Enemy(enemy, grid.getTile(3, 0), grid, 32, 32, 10);
-		Wave wave = new Wave(6, e);
-		Player player = new Player(grid);		
-		TowerCannon t = new TowerCannon(QuickLoad("TowerBase"), QuickLoad("TowerGun"), grid.getTile(4, 2), 10);
-		TowerCannon t2 = new TowerCannon(QuickLoad("towerBaseGreen"), QuickLoad("towerGunGreen"), grid.getTile(5, 12), 10);
-		
+		Game game = new Game(map);
 		while(!Display.isCloseRequested()){
 			Clock.update();
 			
-			grid.Draw();			
-			t.update();	
-			t2.update();
+			game.update();
 			
-			wave.Update();
-			player.Update();
 			Display.update();
 			Display.sync(60);
 			

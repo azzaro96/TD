@@ -51,6 +51,6 @@ public class TowerCannon {
 	
 	public void draw() {
 		DrawQuadTex(baseTexture, x, y, width, height);
-		DrawQuadTex(cannonTexture, x, y, width, height);
+		DrawQuadTexRot(cannonTexture, x, y, width, height, 180);
 	}
 }
