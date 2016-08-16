@@ -14,7 +14,7 @@ public class Boot {
 	public static void main(String[] args) {
 		
 		BeginSession();
-		
+		//Test
 		int map[][] = {
 				{0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
 				{0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
