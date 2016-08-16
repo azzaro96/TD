@@ -53,4 +53,9 @@ public class Wave {
 		return waveComplete;
 	}
 
+	public ArrayList<Enemy> getEnemyList() {
+		return enemyList;
+	}
+	
+	
 }
