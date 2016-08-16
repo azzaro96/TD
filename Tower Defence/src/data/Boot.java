@@ -39,6 +39,8 @@ public class Boot {
 		Player player = new Player(grid);		
 		TowerCannon t = new TowerCannon(QuickLoad("TowerBase"), grid.getTile(4, 2), 10);
 		TowerCannon t1 = new TowerCannon(QuickLoad("TowerGun"), grid.getTile(4, 2), 10);
+		TowerCannon t2 = new TowerCannon(QuickLoad("towerBaseGreen"), grid.getTile(5, 12), 10);
+		TowerCannon t3 = new TowerCannon(QuickLoad("towerGunGreen"), grid.getTile(5, 12), 10);
 		
 		while(!Display.isCloseRequested()){
 			Clock.update();
@@ -46,6 +48,9 @@ public class Boot {
 			grid.Draw();			
 			t.draw();
 			t1.draw();
+			t2.draw();
+			t3.draw();
+			
 			wave.Update();
 			player.Update();
 			Display.update();
