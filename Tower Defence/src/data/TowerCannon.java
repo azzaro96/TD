@@ -27,7 +27,7 @@ public class TowerCannon {
 		damage = dmg;
 		width = (int)startTile.getWidth();
 		height = (int)startTile.getHeight();
-		firingSpeed = 30;
+		firingSpeed = 10;
 		timeSinceLastShot = 0;
 		this.projectiles = new ArrayList<Projectile>();
 	}
