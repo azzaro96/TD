@@ -8,7 +8,7 @@ public class StateManager {
 		MAINMENU, GAME
 	}
 	
-	public static GameState gameState;
+	public static GameState gameState = GameState.MAINMENU;
 	public static MainMenu mainMenu;
 	public static Game game;
 	
