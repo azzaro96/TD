@@ -32,11 +32,11 @@ public class Boot {
 				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		};
 		
-		Game game = new Game(map);
+		//Game game = new Game(map);
 		while(!Display.isCloseRequested()){
 			Clock.update();
 			
-			game.update();
+			//game.update();
 			
 			Display.update();
 			Display.sync(60);
