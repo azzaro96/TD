@@ -55,6 +55,5 @@ public class Clock {
 		else 
 			paused = true;
 	}
-	/* Test */
-	// Test 2
+
 }
