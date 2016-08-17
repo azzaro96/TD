@@ -8,7 +8,7 @@ public class Game {
 	private TileGrid grid;
 	private Player player;
 	private WaveManager waveManager;
-	
+	private TowerCannonBlue blue;
 	
 	
 	
@@ -24,11 +24,12 @@ public class Game {
 				20);
 		
 		player = new Player(grid, waveManager);
-		
+		blue = new TowerCannonBlue(quickLoad("towerBaseGreen"), quickLoad("towerGunGreen"), 128, 128, 32, 32);
 	}
 	
 	public void update(){
 		grid.draw();
+		blue.draw();
 		waveManager.update();
 		player.Update();	
 		
