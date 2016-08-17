@@ -7,6 +7,7 @@ import static helpers.Artist.*;
 
 public class Projectile implements Entity{
 
+	private int statusEffect;
 	private Texture texture;
 	private float x, y, speed;
 	private int damage, width, height;
@@ -19,6 +20,7 @@ public class Projectile implements Entity{
 		this.target = target;
 		this.x = x;
 		this.y = y;
+		this.statusEffect = CSEType.slow;
 		width = w;
 		height = h;
 		this.speed = speed;
@@ -52,6 +54,9 @@ public class Projectile implements Entity{
 			// calcDirection();
 			if(checkCollision(x, y, width, height, target.getX(), target.getY(), target.getWidth(), target.getHeight())) {
 				target.damage(damage);
+				if (statusEffect != -1){
+					target.updateEffectTimer(statusEffect);
+				}
 				alive = false;
 			}
 			draw();
