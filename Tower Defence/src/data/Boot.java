@@ -14,7 +14,7 @@ public class Boot {
 	public static void main(String[] args) {
 		
 		BeginSession();
-		
+		//Test
 		int map[][] = {
 				{0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
 				{0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
@@ -33,22 +33,11 @@ public class Boot {
 				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		};
 		
-		TileGrid grid = new TileGrid(map);
-		Enemy e = new Enemy(enemy, grid.getTile(3, 0), grid, 32, 32, 10);
-		Wave wave = new Wave(6, e);
-		Player player = new Player(grid);		
-		TowerCannon t = new TowerCannon(QuickLoad("TowerBase"), QuickLoad("TowerGun"), grid.getTile(4, 2), 10);
-		TowerCannon t2 = new TowerCannon(QuickLoad("towerBaseGreen"), QuickLoad("towerGunGreen"), grid.getTile(5, 12), 10);
-		
+		Game game = new Game(map);
 		while(!Display.isCloseRequested()){
 			Clock.update();
+			game.update();
 			
-			grid.Draw();			
-			t.draw(); //update	
-			t2.draw();
-			
-			wave.Update();
-			player.Update();
 			Display.update();
 			Display.sync(60);
 			
