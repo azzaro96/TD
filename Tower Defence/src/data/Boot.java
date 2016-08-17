@@ -37,7 +37,7 @@ public class Boot {
 			Clock.update();
 			
 			//game.update();
-			
+			StateManager.update();
 			Display.update();
 			Display.sync(60);
 			
