@@ -8,7 +8,7 @@ import helpers.Clock;
 import static helpers.Artist.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+
 
 public class Player {
 	private TileGrid grid;
@@ -24,7 +24,7 @@ public class Player {
 	
 
 	public void SetTile() {
-		grid.SetTile((int) Math.floor(Mouse.getX() / 32), (int) Math.floor((HEIGHT - Mouse.getY() - 1) / 32),
+		grid.SetTile((int) Math.floor(Mouse.getX() / TILE_SIZE), (int) Math.floor((HEIGHT - Mouse.getY() - 1) / TILE_SIZE),
 				TileType.Road);
 	}
 
@@ -37,7 +37,7 @@ public class Player {
 
 		// Mouse input
 		if (Mouse.isButtonDown(0) && !leftMouseButton) {
-			towerList.add(new TowerCannon(QuickLoad("TowerBase"), QuickLoad("TowerGun"), grid.getTile( (int) Mouse.getX() / 32, (int) (HEIGHT - Mouse.getY() - 1) / 32), 70, 1000,
+			towerList.add(new TowerCannon(quickLoad("TowerBase"), quickLoad("TowerGun"), grid.getTile( (int) Mouse.getX() / TILE_SIZE, (int) (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), 70, 1000,
 					waveManager.getCurrentWave().getEnemyList()));
 			
 			//SetTile();

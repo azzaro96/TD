@@ -1,6 +1,6 @@
 package data;
 
-import static helpers.Artist.BeginSession;
+import static helpers.Artist.beginSession;
 
 import org.lwjgl.opengl.Display;
 
@@ -12,7 +12,7 @@ public class Boot {
 
 	public static void main(String[] args) {
 		
-		BeginSession();
+		beginSession();
 		
 		while(!Display.isCloseRequested()){
 			

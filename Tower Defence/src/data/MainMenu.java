@@ -14,7 +14,7 @@ public class MainMenu {
 	private Texture background;
 	private UI menuUI;
 	public MainMenu(){
-		background = QuickLoad("splash");
+		background = quickLoad("splash");
 		menuUI = new UI();
 		menuUI.addButton("Play", "play", WIDTH / 2 - 256, (int) (HEIGHT * 0.65f));
 	}
@@ -29,7 +29,7 @@ public class MainMenu {
 	}
 	
 	public void update(){
-		DrawQuadTex(background, 0, 0, 1024, 512);
+		drawQuadTex(background, 0, 0, 1024, 512);
 		menuUI.draw();
 		updateButtons();
 	}

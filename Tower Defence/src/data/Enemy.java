@@ -93,7 +93,7 @@ public class Enemy implements Entity {
 	}
 
 	public void draw() {
-		DrawQuadTex(texture, x, y, width, height);
+		drawQuadTex(texture, x, y, width, height);
 	}
 
 	public void update() {

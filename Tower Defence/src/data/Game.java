@@ -2,6 +2,7 @@ package data;
 
 import static helpers.Artist.*;
 
+
 public class Game {
 	
 	private TileGrid grid;
@@ -9,7 +10,7 @@ public class Game {
 	private WaveManager waveManager;
 	
 	
-	public static final int TILE_SIZE = 32;
+	
 	
 	//Temp variables
 	
@@ -18,7 +19,7 @@ public class Game {
 		grid = new TileGrid(map);
 		
 		waveManager = new WaveManager(
-				new Enemy(QuickLoad("creep"), grid.getTile(3, 0), grid, 32, 32, 60, 45), 
+				new Enemy(quickLoad("creep"), grid.getTile(3, 0), grid, TILE_SIZE, TILE_SIZE, 60, 45), 
 				0.5f,
 				20);
 		
@@ -27,7 +28,7 @@ public class Game {
 	}
 	
 	public void update(){
-		grid.Draw();
+		grid.draw();
 		waveManager.update();
 		player.Update();	
 		

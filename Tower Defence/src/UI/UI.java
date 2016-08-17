@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import static helpers.Artist.*;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.opengl.*;
+
 
 public class UI {
 	private ArrayList<Button> buttonList;
@@ -34,12 +34,12 @@ public class UI {
 	}
 	
 	public void addButton(String name, String textureName, int x, int y){
-		buttonList.add(new Button(name, QuickLoad(textureName), x, y));
+		buttonList.add(new Button(name, quickLoad(textureName), x, y));
 	}
 	
 	public void draw(){
 		for (Button b: buttonList){
-			DrawQuadTex(b.getTexture(), b.getX(), b.getY(), b.getWidth(), b.getHeight());
+			drawQuadTex(b.getTexture(), b.getX(), b.getY(), b.getWidth(), b.getHeight());
 		}
 	}
 }

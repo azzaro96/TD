@@ -1,6 +1,6 @@
 package data;
 
-import static helpers.Artist.DrawQuadTex;
+import static helpers.Artist.drawQuadTex;
 import static helpers.Clock.*;
 import static helpers.Artist.*;
 import java.util.ArrayList;
@@ -76,7 +76,7 @@ public class TowerCannon {
 	
 	public void shoot() {
 		timeSinceLastShot = 0;
-		projectiles.add(new Projectile(QuickLoad("bullet"),target, x + Game.TILE_SIZE/4, y + Game.TILE_SIZE/4 ,16,16, 360, 40));
+		projectiles.add(new Projectile(quickLoad("bullet"),target, x + TILE_SIZE/4, y + TILE_SIZE/4 ,16,16, 360, 40));
 	}
 	
 
@@ -100,8 +100,8 @@ public class TowerCannon {
 	}
 	
 	public void draw() {
-		DrawQuadTex(baseTexture, x, y, width, height);
-		DrawQuadTexRot(cannonTexture, x, y, width, height, angle - 60);
+		drawQuadTex(baseTexture, x, y, width, height);
+		drawQuadTexRot(cannonTexture, x, y, width, height, angle - 60);
 	}
 
 	public void updateEnemyList(ArrayList<Enemy> enemyList) {

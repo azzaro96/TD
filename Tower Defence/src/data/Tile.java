@@ -2,7 +2,7 @@ package data;
 
 import org.newdawn.slick.opengl.Texture;
 import static helpers.Artist.*;
-import static helpers.Artist.*;
+
 public class Tile {
 	
 	private float x, y, width, height;
@@ -23,15 +23,15 @@ public class Tile {
 	
 	
 	public int getXPlace(){
-		return (int) x/32; 
+		return (int) x/TILE_SIZE; 
 	}
 	
 	public int getYPlace(){
-		return (int) y/32;
+		return (int) y/TILE_SIZE;
 	}
 	
-	public void Draw() {
-		DrawQuadTex(texture, x, y, width, height);
+	public void draw() {
+		drawQuadTex(texture, x, y, width, height);
 	}
 
 	public float getX() {
