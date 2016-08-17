@@ -18,9 +18,9 @@ public class Game {
 		grid = new TileGrid(map);
 		
 		waveManager = new WaveManager(
-				new Enemy(QuickLoad("creep"), grid.getTile(3, 0), grid, 32, 32, 240), 
+				new Enemy(QuickLoad("creep"), grid.getTile(3, 0), grid, 32, 32, 60, 45), 
 				0.5f,
-				20);
+				10);
 		
 		player = new Player(grid, waveManager);
 		
@@ -29,8 +29,7 @@ public class Game {
 	public void update(){
 		grid.Draw();
 		waveManager.update();
-		player.Update();
-		
+		player.Update();	
 		
 	}
 }

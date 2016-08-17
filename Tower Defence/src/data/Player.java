@@ -20,6 +20,8 @@ public class Player {
 		this.waveManager = waveManager;
 		this.towerList = new ArrayList<TowerCannon>();
 	}
+	
+	
 
 	public void SetTile() {
 		grid.SetTile((int) Math.floor(Mouse.getX() / 32), (int) Math.floor((HEIGHT - Mouse.getY() - 1) / 32),
@@ -30,11 +32,12 @@ public class Player {
 
 		for (TowerCannon t : towerList) {
 			t.update();
+			t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
 		}
 
 		// Mouse input
 		if (Mouse.isButtonDown(0) && !leftMouseButton) {
-			towerList.add(new TowerCannon(QuickLoad("TowerBase"), QuickLoad("TowerGun"), grid.getTile( (int) Mouse.getX() / 32, (int) (HEIGHT - Mouse.getY() - 1) / 32), 10,
+			towerList.add(new TowerCannon(QuickLoad("TowerBase"), QuickLoad("TowerGun"), grid.getTile( (int) Mouse.getX() / 32, (int) (HEIGHT - Mouse.getY() - 1) / 32), 70, 1000,
 					waveManager.getCurrentWave().getEnemyList()));
 			
 			//SetTile();
