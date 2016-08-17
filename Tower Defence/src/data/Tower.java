@@ -1,9 +1,24 @@
 package data;
 
-public class Tower implements Entity{
+import org.newdawn.slick.opengl.Texture;
+import static helpers.Artist.*;
+
+public abstract class Tower implements Entity{
 
 	private float x, y;
-	private int width, height;
+	private int width, height, damage;
+	private Enemy target;
+	private Texture baseTexture, cannonTexture;
+	
+	
+	public Tower(Texture t1, Texture t2, float x, float y, int width, int height) {
+		baseTexture = t1;
+		cannonTexture = t2;
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	}
 	
 	public float getX() {
 		return x;
@@ -40,9 +55,11 @@ public class Tower implements Entity{
 	public void update() {
 		
 	}
-
+	
+	//stavio sam da crta iz dva dela, on crta sam bbazu (izgleda)
 	public void draw() {
-		
+		drawQuadTex(baseTexture, x, y, width, height);
+		drawQuadTex(cannonTexture, x, y, width, height);
 	}
 
 }

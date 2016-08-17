@@ -5,16 +5,16 @@ import static helpers.Clock.*;
 import org.newdawn.slick.opengl.Texture;
 import static helpers.Artist.*;
 
-public class Projectile {
+public class Projectile implements Entity{
 
 	private Texture texture;
-	private float x, y, speed, width, height;
-	private int damage;
+	private float x, y, speed;
+	private int damage, width, height;
 	private Enemy target;
 	private float xVelocity, yVelocity;
 	private boolean alive;
 	
-	public Projectile(Texture t, Enemy target, float x, float y, float w, float h, float speed, int dmg) {
+	public Projectile(Texture t, Enemy target, float x, float y, int w, int h, float speed, int dmg) {
 		texture = t;
 		this.target = target;
 		this.x = x;
@@ -60,5 +60,45 @@ public class Projectile {
 
 	public void draw() {
 		drawQuadTex(texture, x, y, 16, 16);
+	}
+
+	@Override
+	public float getX() {
+		return x;
+	}
+
+	@Override
+	public float getY() {
+		return y;
+	}
+
+	@Override
+	public void setX(float x) {
+		this.x = x;
+	}
+
+	@Override
+	public void setY(float y) {
+		this.y = y;
+	}
+
+	@Override
+	public int getWidth() {
+		return width;
+	}
+
+	@Override
+	public int getHeight() {
+		return height;
+	}
+
+	@Override
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	@Override
+	public void setHeight(int height) {
+		this.height = height;
 	}
 }
