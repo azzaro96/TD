@@ -36,7 +36,6 @@ public class Boot {
 		Game game = new Game(map);
 		while(!Display.isCloseRequested()){
 			Clock.update();
-			
 
 			game.update();
 			
