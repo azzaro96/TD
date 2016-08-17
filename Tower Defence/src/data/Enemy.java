@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Enemy implements Entity{
 
-	private int width, height, health, currentCheckPoint;;
+	private int width, height, health, currentCheckPoint;
 	// i status
 	private float speed, x, y;
 	private Texture texture;
