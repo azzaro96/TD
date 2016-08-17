@@ -3,13 +3,12 @@ package data;
 import org.newdawn.slick.opengl.Texture;
 import static helpers.Artist.*;
 import static helpers.Clock.*;
-
 import java.util.ArrayList;
 
 public class Enemy implements Entity {
 
 	private int width, height, health, currentCheckPoint;
-	// i status treba da se ubaci
+	private float[] effectsTimer;
 	private float speed, x, y;
 	private Texture texture;
 	private Tile startTile;
@@ -27,6 +26,10 @@ public class Enemy implements Entity {
 		this.height = height;
 		this.speed = speed;
 		this.grid = grid;
+		this.effectsTimer = new float[CSEType.numberOfTypes];
+		for (int i = 0; i < CSEType.numberOfTypes; i++) {
+			this.effectsTimer[i] = 0;
+		}
 		health = hp;
 		this.checkPoints = new ArrayList<CheckPoint>();
 		this.directions = new int[2];
@@ -60,7 +63,7 @@ public class Enemy implements Entity {
 	}
 
 	/**
-	 * @return nista 
+	 * @return nista
 	 * @opis skenira mapu i stvara arrayList checkPoint-ova
 	 */
 	private void populateCheckPointList() {
@@ -71,18 +74,19 @@ public class Enemy implements Entity {
 		boolean cont = true;
 
 		while (cont) {
-			
+
 			// trenutni smer
 			int[] currentD = findNextD(checkPoints.get(counter).getTile());
-			
-			// proverava da li postoji smer, 2 je znak da ne postoji i da je metoda zavrsena
+
+			// proverava da li postoji smer, 2 je znak da ne postoji i da je
+			// metoda zavrsena
 			if (currentD[0] == 2) {
 				cont = false;
 			} else {
-				
+
 				// iterativno trazi checkPoint-ove
 				directions = findNextD(checkPoints.get(counter).getTile());
-				checkPoints.add(findNextC(checkPoints.get(counter).getTile(),directions));
+				checkPoints.add(findNextC(checkPoints.get(counter).getTile(), directions));
 			}
 			counter++;
 		}
@@ -97,21 +101,34 @@ public class Enemy implements Entity {
 	}
 
 	public void update() {
-		if (first)
-			first = false;
-		else {
-			if (checkPointReached()) {
-				// stigao do poslednjeg checkPoint-a
-				if (currentCheckPoint + 1 == checkPoints.size()) {
-					die();
-				} else
-					currentCheckPoint++;
-			} else {
-				// kretanje
-				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * speed;
-				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * speed;
+		if (checkPointReached()) {
+			// stigao do poslednjeg checkPoint-a
+			if (currentCheckPoint + 1 == checkPoints.size()) {
+				die();
+			} else
+				currentCheckPoint++;
+		} else {
+			// kretanje
+			if (effectsTimer[CSEType.stun] > 0) {
+				effectsTimer[CSEType.stun] -= Delta();
+				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (speed * (1 + CSEType.STUN.getStatus().getSpeedModifier()));
+				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (speed * (1 + CSEType.STUN.getStatus().getSpeedModifier()));
+				if (effectsTimer[CSEType.stun] < 0)
+					effectsTimer[CSEType.stun] = 0;
+			}
+			else if (effectsTimer[CSEType.slow] > 0){
+				effectsTimer[CSEType.slow] -= Delta();
+				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (speed * (1 + CSEType.SLOW.getStatus().getSpeedModifier()));
+				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (speed * (1 + CSEType.SLOW.getStatus().getSpeedModifier()));
+				if (effectsTimer[CSEType.slow] < 0)
+					effectsTimer[CSEType.slow] = 0;
+			}
+			else {
+				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * speed; 
+				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * speed; 
 			}
 		}
+
 	}
 
 	private CheckPoint findNextC(Tile s, int[] dir) {
@@ -126,10 +143,11 @@ public class Enemy implements Entity {
 
 			int potentialCPXCoord = s.getXPlace() + dir[0] * counter;
 			int potentialCPYCoord = s.getYPlace() + dir[1] * counter;
-			
-			// ako sledeci tile u tom smeru u kom se krip krece se razlikuje od predhodnog tile-a u tom smeru
-			if ((potentialCPXCoord == grid.getTilesWide() || potentialCPYCoord == grid.getTilesHigh()) || 
-					s.getType() != grid.getTile(potentialCPXCoord, potentialCPYCoord).getType()) {
+
+			// ako sledeci tile u tom smeru u kom se krip krece se razlikuje od
+			// predhodnog tile-a u tom smeru
+			if ((potentialCPXCoord == grid.getTilesWide() || potentialCPYCoord == grid.getTilesHigh())
+					|| s.getType() != grid.getTile(potentialCPXCoord, potentialCPYCoord).getType()) {
 				found = true;
 				counter -= 1;
 				next = grid.getTile(s.getXPlace() + dir[0] * counter, s.getYPlace() + dir[1] * counter);
@@ -143,7 +161,8 @@ public class Enemy implements Entity {
 
 	/**
 	 * 
-	 * @param Tile na kome se krip trenutno nalazi
+	 * @param Tile
+	 *            na kome se krip trenutno nalazi
 	 * @return dvodimenzionalni vektor smera
 	 */
 	private int[] findNextD(Tile s) {
@@ -172,17 +191,18 @@ public class Enemy implements Entity {
 		} else if (s.getType() == d.getType() && directions[1] != -1) {
 			dir[0] = 0;
 			dir[1] = 1;
-		} else { //ako ne moze da nadje sledeci smer
+		} else { // ako ne moze da nadje sledeci smer
 			dir[0] = 2;
 			dir[1] = 2;
 		}
 
 		return dir;
 	}
+
 	/**
 	 * 
 	 * @param dmg
-	 * prima damage
+	 *            prima damage
 	 */
 	public void damage(int dmg) {
 		health -= dmg;
@@ -274,4 +294,12 @@ public class Enemy implements Entity {
 		return alive;
 	}
 
+	
+	public void updateEffectTimer(int effectCode){
+		if(effectCode != -1){
+			effectsTimer[effectCode] = CSEType.EFFECTS[effectCode].getStatus().getDuration(); 
+		}
+	}
+	
+	
 }
