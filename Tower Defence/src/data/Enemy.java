@@ -6,10 +6,10 @@ import static helpers.Clock.*;
 
 import java.util.ArrayList;
 
-public class Enemy {
+public class Enemy implements Entity {
 
-	private int width, height, health, currentCheckPoint;;
-	// i status
+	private int width, height, health, currentCheckPoint;
+	// i status treba da se ubaci
 	private float speed, x, y;
 	private Texture texture;
 	private Tile startTile;
@@ -18,7 +18,7 @@ public class Enemy {
 	private boolean first = true, alive = true;
 	private int[] directions;
 
-	public Enemy(Texture t, Tile startTile, TileGrid grid, int width, int height, float speed) {
+	public Enemy(Texture t, Tile startTile, TileGrid grid, int width, int height, float speed, int hp) {
 		texture = t;
 		this.startTile = startTile;
 		this.x = startTile.getX();
@@ -27,86 +27,109 @@ public class Enemy {
 		this.height = height;
 		this.speed = speed;
 		this.grid = grid;
-
+		health = hp;
 		this.checkPoints = new ArrayList<CheckPoint>();
 		this.directions = new int[2];
 		// x direction
 		this.directions[0] = 0;
 		// y direction
 		this.directions[1] = 0;
-		directions = FindNextD(startTile);
+		directions = findNextD(startTile);
 		this.currentCheckPoint = 0;
-		PopulateCheckPointList();
+		populateCheckPointList();
 	}
 
-	private boolean CheckPointReached() {
+	/**
+	 * @return Da li je krip stigao na sledeci checkPoint
+	 */
+	private boolean checkPointReached() {
 		boolean reached = false;
-		
+
 		Tile t = checkPoints.get(currentCheckPoint).getTile();
-		if(x > t.getX() - 3 && x < t.getX() + 3 && y > t.getY() - 3 && y < t.getY() + 3){
+
+		// +- 3 je dodato kao margina da krip ne bi slucajno preskocio
+		// checkpoint pri velikim brzinama
+		if (x > t.getX() - 3 && x < t.getX() + 3 && y > t.getY() - 3 && y < t.getY() + 3) {
 			reached = true;
+
+			// centrira kripa na tile ukoliko postoji odstupanje
 			x = t.getX();
 			y = t.getY();
 		}
 		return reached;
 	}
 
-	private void PopulateCheckPointList() {
-
-		checkPoints.add(FindNextC(startTile, directions = FindNextD(startTile)));
+	/**
+	 * @return nista 
+	 * @opis skenira mapu i stvara arrayList checkPoint-ova
+	 */
+	private void populateCheckPointList() {
+		//
+		checkPoints.add(findNextC(startTile, directions = findNextD(startTile)));
 
 		int counter = 0;
 		boolean cont = true;
 
 		while (cont) {
-			int[] currentD = FindNextD(checkPoints.get(counter).getTile());
-			//check if a next direction/checkpoint exists, end after 20 checks (arbitrary)
+			
+			// trenutni smer
+			int[] currentD = findNextD(checkPoints.get(counter).getTile());
+			
+			// proverava da li postoji smer, 2 je znak da ne postoji i da je metoda zavrsena
 			if (currentD[0] == 2) {
 				cont = false;
 			} else {
-				checkPoints.add(FindNextC(checkPoints.get(counter).getTile(),
-						directions = FindNextD(checkPoints.get(counter).getTile())));
+				
+				// iterativno trazi checkPoint-ove
+				directions = findNextD(checkPoints.get(counter).getTile());
+				checkPoints.add(findNextC(checkPoints.get(counter).getTile(),directions));
 			}
 			counter++;
 		}
 	}
 
-	public void Die(){
+	public void die() {
 		alive = false;
 	}
-	
-	public void Draw() {
-		DrawQuadTex(texture, x, y, width, height);
+
+	public void draw() {
+		drawQuadTex(texture, x, y, width, height);
 	}
 
-	public void Update() {
+	public void update() {
 		if (first)
 			first = false;
 		else {
-			if (CheckPointReached()) {
-				if(currentCheckPoint + 1 == checkPoints.size()){
-					Die();
-				}else
-				currentCheckPoint++;
+			if (checkPointReached()) {
+				// stigao do poslednjeg checkPoint-a
+				if (currentCheckPoint + 1 == checkPoints.size()) {
+					die();
+				} else
+					currentCheckPoint++;
 			} else {
+				// kretanje
 				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * speed;
 				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * speed;
 			}
 		}
-	}	
+	}
 
-	private CheckPoint FindNextC(Tile s, int[] dir) {
+	private CheckPoint findNextC(Tile s, int[] dir) {
 		Tile next = null;
 		CheckPoint c = null;
-		// Boolean to decide if next checkpoint is found
+		// Boolean vrednost koja odredjuje da li je nadjen sledeci checkPoint
 		boolean found = false;
 
 		int counter = 1;
-			
+
 		while (!found) {
+
+			int potentialCPXCoord = s.getXPlace() + dir[0] * counter;
+			int potentialCPYCoord = s.getYPlace() + dir[1] * counter;
 			
-			if ((s.getXPlace() + dir[0] * counter == grid.getTilesWide() || s.getYPlace() + dir[1] * counter == grid.getTilesHigh()) || s.getType() != grid.getTile(s.getXPlace() + dir[0] * counter, s.getYPlace() + dir[1] * counter)
-					.getType()) {
+			// ako sledeci tile u tom smeru u kom se krip krece se razlikuje od predhodnog tile-a u tom smeru
+			if ((potentialCPXCoord == grid.getTilesWide() || potentialCPYCoord == grid.getTilesHigh()) || 
+					s.getType() != grid.getTile(potentialCPXCoord, potentialCPYCoord).getType()) {
 				found = true;
 				counter -= 1;
 				next = grid.getTile(s.getXPlace() + dir[0] * counter, s.getYPlace() + dir[1] * counter);
@@ -118,8 +141,20 @@ public class Enemy {
 		return c;
 	}
 
-	private int[] FindNextD(Tile s) {
+	/**
+	 * 
+	 * @param Tile na kome se krip trenutno nalazi
+	 * @return dvodimenzionalni vektor smera
+	 */
+	private int[] findNextD(Tile s) {
 		int[] dir = new int[2];
+		// gornja susedna
+		// desna susedna
+		// donja susedna
+		// leva susedna
+
+		// null pointer ne moze da se desi jer grid.GetTile() metoda ima proveru
+		// i vraca NULL TileType ako se taj uslov ispuni
 		Tile u = grid.getTile(s.getXPlace(), s.getYPlace() - 1);
 		Tile r = grid.getTile(s.getXPlace() + 1, s.getYPlace());
 		Tile d = grid.getTile(s.getXPlace(), s.getYPlace() + 1);
@@ -128,7 +163,7 @@ public class Enemy {
 		if (s.getType() == u.getType() && directions[1] != 1) {
 			dir[0] = 0;
 			dir[1] = -1;
-		} else if (s.getType() == r.getType() && directions[0] != -1 ) {
+		} else if (s.getType() == r.getType() && directions[0] != -1) {
 			dir[0] = 1;
 			dir[1] = 0;
 		} else if (s.getType() == l.getType() && directions[0] != 1) {
@@ -137,12 +172,22 @@ public class Enemy {
 		} else if (s.getType() == d.getType() && directions[1] != -1) {
 			dir[0] = 0;
 			dir[1] = 1;
-		} else {
+		} else { //ako ne moze da nadje sledeci smer
 			dir[0] = 2;
 			dir[1] = 2;
 		}
 
 		return dir;
+	}
+	/**
+	 * 
+	 * @param dmg
+	 * prima damage
+	 */
+	public void damage(int dmg) {
+		health -= dmg;
+		if (health <= 0)
+			die();
 	}
 
 	public int getWidth() {
@@ -224,8 +269,9 @@ public class Enemy {
 	public void setGrid(TileGrid grid) {
 		this.grid = grid;
 	}
-	
-	public boolean isAlive(){
+
+	public boolean isAlive() {
 		return alive;
 	}
+
 }

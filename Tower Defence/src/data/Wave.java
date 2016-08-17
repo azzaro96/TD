@@ -19,15 +19,15 @@ public class Wave {
 		this.enemyList = new ArrayList<Enemy>();
 		this.waveComplete = false;
 
-		Spawn();
+		spawn();
 	}
 
-	public void Update() {
+	public void update() {
 		boolean allEnemiesDead = true;
 		if (enemyList.size() < enemiesPerWave) {
 			timeSinceLastSpawn += Delta();
 			if (timeSinceLastSpawn > spawnTime) {
-				Spawn();
+				spawn();
 				timeSinceLastSpawn = 0;
 			}
 		}
@@ -35,8 +35,8 @@ public class Wave {
 		for (Enemy e : enemyList) {
 			if (e.isAlive()) {
 				allEnemiesDead = false;
-				e.Update();
-				e.Draw();
+				e.update();
+				e.draw();
 			}
 		}
 		
@@ -44,9 +44,9 @@ public class Wave {
 			waveComplete = true;
 	}
 
-	private void Spawn() {
+	private void spawn() {
 		enemyList.add(new Enemy(enemyType.getTexture(), enemyType.getStartTile(), enemyType.getGrid(),
-				enemyType.getWidth(), enemyType.getHeight(), enemyType.getSpeed()));
+				enemyType.getWidth(), enemyType.getHeight(), enemyType.getSpeed(), enemyType.getHealth()));
 	}
 
 	public boolean isCompleted() {

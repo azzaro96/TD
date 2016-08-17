@@ -1,6 +1,6 @@
 package data;
 
-import static helpers.Artist.DrawQuadTex;
+import static helpers.Artist.drawQuadTex;
 import static helpers.Clock.*;
 import static helpers.Artist.*;
 import java.util.ArrayList;
@@ -10,25 +10,28 @@ import org.newdawn.slick.opengl.Texture;
 public class TowerCannon {
 	
 	private float x, y, timeSinceLastShot, firingSpeed, angle;
-	private int width, height, damage;
+	private int width, height, damage, range;
 	private Texture baseTexture, cannonTexture;
 	private Tile startTile;
 	private ArrayList<Projectile> projectiles;
 	private ArrayList<Enemy> enemies;
 	private Enemy target;
+	private boolean targeted;
 	//konstruktor prima dve teksture umesto jedna jer se razlikuje cannon
 	//i draw crta dva puta
 	
-	public TowerCannon(Texture t1, Texture t2, Tile startTile, int dmg, ArrayList<Enemy> enemies) {
+	public TowerCannon(Texture t1, Texture t2, Tile startTile, int dmg, int range, ArrayList<Enemy> enemies) {
 		this.x = startTile.getX();
 		this.y = startTile.getY();
 		this.baseTexture = t1;
 		this.cannonTexture = t2;
 		this.startTile = startTile;
 		this.enemies = enemies;
-		this.target = acquireTarget();
-		this.angle = calcAngle();
+		this.targeted = false;
+		//this.target = acquireTarget();
+		//this.angle = calcAngle();
 		damage = dmg;
+		this.range = range;
 		width = (int)startTile.getWidth();
 		height = (int)startTile.getHeight();
 		firingSpeed = 0.66f;
@@ -37,8 +40,34 @@ public class TowerCannon {
 	}
 	
 	private Enemy acquireTarget(){
-		return enemies.get(0);
+		Enemy closest = null;
+		float closestDistance = 10000;
+		for(Enemy e: enemies) {
+			if(isInRange(e) && findDistance(e) < closestDistance) {
+				closest = e;
+				closestDistance = findDistance(e);
+			}
+		}
+		if(closest != null)
+			targeted = true;
+		return closest;
 	}
+	
+	private boolean isInRange(Enemy e) {
+		float xDistance = Math.abs(e.getX() - x);
+		float yDistance = Math.abs(e.getY() - y);
+		if(xDistance <= range && yDistance <= range)
+			return true;
+		return false;
+	}
+	
+	private float findDistance(Enemy e) {
+		//zasto ne koristi rastojanje izmedju dve tacke, nesto mi je hm hm
+		float xDistance = Math.abs(e.getX() - x);
+		float yDistance = Math.abs(e.getY() - y);
+		return xDistance + yDistance;
+	}
+	
 	
 	private float calcAngle(){
 		double angleTemp = Math.atan2(target.getY() - y, target.getX()  - x);
@@ -47,10 +76,18 @@ public class TowerCannon {
 	
 	public void shoot() {
 		timeSinceLastShot = 0;
-		projectiles.add(new Projectile(QuickLoad("bullet"),target, x + Game.TILE_SIZE/4, y + Game.TILE_SIZE/4 , 360, 40));
+		projectiles.add(new Projectile(quickLoad("bullet"),target, x + TILE_SIZE/4, y + TILE_SIZE/4 ,16,16, 360, 40));
 	}
 	
+
 	public void update() {
+		if(!targeted) {
+			target = acquireTarget();
+		}
+		
+		if(target == null || target.isAlive() == false)
+			targeted = false;
+		
 		timeSinceLastShot += Delta();
 		if(timeSinceLastShot > firingSpeed)
 			shoot();
@@ -63,7 +100,12 @@ public class TowerCannon {
 	}
 	
 	public void draw() {
-		DrawQuadTex(baseTexture, x, y, width, height);
-		DrawQuadTexRot(cannonTexture, x, y, width, height, angle - 60);
+		drawQuadTex(baseTexture, x, y, width, height);
+		drawQuadTexRot(cannonTexture, x, y, width, height, angle - 60);
+	}
+
+	public void updateEnemyList(ArrayList<Enemy> enemyList) {
+		enemies = enemyList;
+		
 	}
 }
