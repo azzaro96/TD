@@ -1,5 +1,6 @@
 package data;
 
+
 public class CreepStatusEffect {
 	
 	private float duration;
@@ -12,8 +13,7 @@ public class CreepStatusEffect {
 		this.speedModifier = speedModifier;
 		this.damageModifier = damageModifier;
 	}
-	
-	
+
 	public float getDuration() {
 		return duration;
 	}
@@ -32,6 +32,8 @@ public class CreepStatusEffect {
 	public void setDamageModifier(float damageModifier) {
 		this.damageModifier = damageModifier;
 	}
+	
+	
 	
 	
 	
