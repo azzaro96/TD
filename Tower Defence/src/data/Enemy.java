@@ -6,7 +6,7 @@ import static helpers.Clock.*;
 
 import java.util.ArrayList;
 
-public class Enemy {
+public class Enemy implements Entity{
 
 	private int width, height, health, currentCheckPoint;;
 	// i status
@@ -34,7 +34,7 @@ public class Enemy {
 		this.directions[0] = 0;
 		// y direction
 		this.directions[1] = 0;
-		directions = FindNextD(startTile);
+		directions = findNextD(startTile);
 		this.currentCheckPoint = 0;
 		PopulateCheckPointList();
 	}
@@ -53,39 +53,40 @@ public class Enemy {
 
 	private void PopulateCheckPointList() {
 
-		checkPoints.add(FindNextC(startTile, directions = FindNextD(startTile)));
+		checkPoints.add(findNextC(startTile, directions = findNextD(startTile)));
 
 		int counter = 0;
 		boolean cont = true;
 
 		while (cont) {
-			int[] currentD = FindNextD(checkPoints.get(counter).getTile());
+			int[] currentD = findNextD(checkPoints.get(counter).getTile());
 			//check if a next direction/checkpoint exists, end after 20 checks (arbitrary)
 			if (currentD[0] == 2) {
 				cont = false;
 			} else {
-				checkPoints.add(FindNextC(checkPoints.get(counter).getTile(),
-						directions = FindNextD(checkPoints.get(counter).getTile())));
+				checkPoints.add(findNextC(checkPoints.get(counter).getTile(),
+						directions = findNextD(checkPoints.get(counter).getTile())));
 			}
 			counter++;
 		}
 	}
 
-	public void Die(){
+	public void die(){
 		alive = false;
 	}
 	
-	public void Draw() {
+	public void draw() {
 		DrawQuadTex(texture, x, y, width, height);
 	}
+	
 
-	public void Update() {
+	public void update() {
 		if (first)
 			first = false;
 		else {
 			if (CheckPointReached()) {
 				if(currentCheckPoint + 1 == checkPoints.size()){
-					Die();
+					die();
 				}else
 				currentCheckPoint++;
 			} else {
@@ -95,7 +96,7 @@ public class Enemy {
 		}
 	}	
 
-	private CheckPoint FindNextC(Tile s, int[] dir) {
+	private CheckPoint findNextC(Tile s, int[] dir) {
 		Tile next = null;
 		CheckPoint c = null;
 		// Boolean to decide if next checkpoint is found
@@ -118,7 +119,7 @@ public class Enemy {
 		return c;
 	}
 
-	private int[] FindNextD(Tile s) {
+	private int[] findNextD(Tile s) {
 		int[] dir = new int[2];
 		Tile u = grid.getTile(s.getXPlace(), s.getYPlace() - 1);
 		Tile r = grid.getTile(s.getXPlace() + 1, s.getYPlace());
@@ -148,13 +149,13 @@ public class Enemy {
 	public void damage(int dmg) {
 		health -= dmg;
 		if(health <= 0) 
-			Die();
+			die();
 	}
 
 	public int getWidth() {
 		return width;
 	}
-
+	
 	public void setWidth(int width) {
 		this.width = width;
 	}
@@ -234,4 +235,6 @@ public class Enemy {
 	public boolean isAlive(){
 		return alive;
 	}
+	
+	
 }
