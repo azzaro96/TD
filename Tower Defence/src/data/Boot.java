@@ -14,10 +14,9 @@ public class Boot {
 	public static void main(String[] args) {
 		
 		BeginSession();
-		//Test
 		int map[][] = {
 				{0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
-				{0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
+				{0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0}, 
 				{0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
 				{0,0,0,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,0,0},
 				{0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0},
@@ -33,12 +32,12 @@ public class Boot {
 				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		};
 		
-		Game game = new Game(map);
+		//Game game = new Game(map);
 		while(!Display.isCloseRequested()){
 			Clock.update();
 			
-			game.update();
-			
+			//game.update();
+			StateManager.update();
 			Display.update();
 			Display.sync(60);
 			
