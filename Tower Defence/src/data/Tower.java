@@ -32,13 +32,8 @@ public abstract class Tower implements Entity{
 		this.timeSinceLastShot = 0;
 		this.projectiles = new ArrayList<Projectile>();
 	}
-	
-	
+		
 	//stavio sam da crta iz dva dela, on crta sam bbazu (izgleda)
-	public void draw() {
-		drawQuadTex(baseTexture, x, y, width, height);
-		drawQuadTexRot(cannonTexture, x, y, width, height, angle);
-	}
 	
 	private Enemy acquireTarget(){
 		Enemy closest = null;
@@ -98,9 +93,15 @@ public abstract class Tower implements Entity{
 		for(Projectile p: projectiles) {
 			p.update();
 		}
-		angle = calcAngle();
+		angle = calcAngle() - 50;
 		draw();
 	}
+	
+	public void draw() {
+		drawQuadTex(baseTexture, x, y, width, height);
+		drawQuadTexRot(cannonTexture, x, y, width, height, angle);
+	}
+	
 	
 	
 	public float getX() {
