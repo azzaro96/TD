@@ -105,7 +105,6 @@ public class TowerCannon {
 	}
 
 	public void updateEnemyList(ArrayList<Enemy> enemyList) {
-		enemies = enemyList;
-		
+		enemies = enemyList;		
 	}
 }
