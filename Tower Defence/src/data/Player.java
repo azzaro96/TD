@@ -13,12 +13,12 @@ import java.util.ArrayList;
 public class Player {
 	private TileGrid grid;
 	private WaveManager waveManager;
-	private ArrayList<TowerCannon> towerList;
+	private ArrayList<Tower> towerList;
 	private boolean leftMouseButton = false;
 	public Player(TileGrid grid, WaveManager waveManager) {
 		this.grid = grid;
 		this.waveManager = waveManager;
-		this.towerList = new ArrayList<TowerCannon>();
+		this.towerList = new ArrayList<Tower>();
 	}
 	
 	
@@ -30,17 +30,15 @@ public class Player {
 
 	public void Update() {
 
-		for (TowerCannon t : towerList) {
+		for (Tower t : towerList) {
 			t.update();
-			t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
+			t.draw();
+			//t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
 		}
 
 		// Mouse input
 		if (Mouse.isButtonDown(0) && !leftMouseButton) {
-			towerList.add(new TowerCannon(quickLoad("towerBaseGreen"), quickLoad("towerGunGreen"), grid.getTile( (int) Mouse.getX() / TILE_SIZE, (int) (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), 70, 1000,
-					waveManager.getCurrentWave().getEnemyList()));
-			
-			//SetTile();
+			towerList.add(new TowerCannonBlue(TowerType.orangeTower, grid.getTile( (int) Mouse.getX() / TILE_SIZE, (int) (HEIGHT - Mouse.getY() - 1) / TILE_SIZE)));
 		}
 		
 		leftMouseButton = Mouse.isButtonDown(0);

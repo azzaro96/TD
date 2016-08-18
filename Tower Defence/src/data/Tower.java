@@ -11,13 +11,14 @@ public abstract class Tower implements Entity{
 	private Texture baseTexture, cannonTexture;
 	
 	
-	public Tower(Texture t1, Texture t2, float x, float y, int width, int height) {
-		baseTexture = t1;
-		cannonTexture = t2;
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+	public Tower(TowerType type, Tile startTile) {
+		baseTexture = type.towerBase;
+		cannonTexture = type.towerCannon;
+		this.damage = type.dmg;
+		this.x = startTile.getX();
+		this.y = startTile.getY();
+		this.width = startTile.getWidth();
+		this.height = startTile.getHeight();
 	}
 	
 	public float getX() {

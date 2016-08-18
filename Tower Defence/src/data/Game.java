@@ -24,12 +24,12 @@ public class Game {
 				20);
 		
 		player = new Player(grid, waveManager);
-		blue = new TowerCannonBlue(quickLoad("towerBaseGreen"), quickLoad("towerGunGreen"), 128, 128, 32, 32);
+		//blue = new TowerCannonBlue(quickLoad("towerBaseGreen"), quickLoad("towerGunGreen"), 128, 128, 32, 32);
 	}
 	
 	public void update(){
 		grid.draw();
-		blue.draw();
+		//blue.draw();
 		waveManager.update();
 		player.Update();	
 		
