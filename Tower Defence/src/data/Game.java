@@ -19,7 +19,7 @@ public class Game {
 		grid = new TileGrid(map);
 		
 		waveManager = new WaveManager(
-				new Enemy(quickLoad("creep"), grid.getTile(3, 0), grid, TILE_SIZE, TILE_SIZE, 60, 45), 
+				new Enemy(quickLoad("creep"), grid.getTile(3, 0), grid, TILE_SIZE, TILE_SIZE, 60, 150), 
 				0.5f,
 				20);
 		
