@@ -10,6 +10,9 @@ public class TextureBank {
 	greenTowerCannon = quickLoad("towerGunGreen"),
 	orangeTowerBase = quickLoad("TowerBase"),
 	orangeTowerCannon = quickLoad("TowerGun"),
+	greenTowerFull = quickLoad("greenTowerFull"),
+	orangeTowerFull = quickLoad("orangeTowerFull"),
+	
 	
 	//Projektili
 	greenProjectile = quickLoad("bullet"),

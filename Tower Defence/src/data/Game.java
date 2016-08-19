@@ -50,8 +50,8 @@ public class Game {
 
 	private void setupUI() {
 		towerPickerUI = new UI();
-		towerPickerUI.addButton("Orange Tower", TextureBank.orangeTowerBase, 0, 0);
-		towerPickerUI.addButton("Green Tower", TextureBank.greenTowerBase, TILE_SIZE, 0);
+		towerPickerUI.addButton("Orange Tower", TextureBank.orangeTowerFull, 0, 0);
+		towerPickerUI.addButton("Green Tower", TextureBank.greenTowerFull, TILE_SIZE, 0);
 	}
 
 	public void update() {
