@@ -24,7 +24,7 @@ public class TextureBank {
 	
 	//MainMenu
 	splashScreen = quickLoad("splash"),
-	playButton = quickLoad("playButton"),
+	playButton = quickLoad("play"),
 	
 	//HealthBars
 	healthBarGreen = quickLoad("healthBarGreen"),

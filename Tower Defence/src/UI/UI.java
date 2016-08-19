@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import static helpers.Artist.*;
 
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.opengl.Texture;
 
 
 public class UI {
@@ -33,8 +34,8 @@ public class UI {
 		return null;
 	}
 	
-	public void addButton(String name, String textureName, int x, int y){
-		buttonList.add(new Button(name, quickLoad(textureName), x, y));
+	public void addButton(String name, Texture texture, int x, int y){
+		buttonList.add(new Button(name, texture, x, y));
 	}
 	
 	public void draw(){

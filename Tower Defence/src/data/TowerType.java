@@ -6,8 +6,8 @@ import helpers.TextureBank;
 
 public enum TowerType {
 	
-	greenTower(TextureBank.greenTowerBase, TextureBank.greenTowerCannon, ProjectileType.greenTowerProjectile, 30, 1000, 20, 1),
-	orangeTower(TextureBank.orangeTowerBase, TextureBank.orangeTowerCannon,ProjectileType.orangeTowerProjectile, 50, 1000, 20, 1);
+	greenTower(TextureBank.greenTowerBase, TextureBank.greenTowerCannon, ProjectileType.greenTowerProjectile, 30, 70, 5, 1),
+	orangeTower(TextureBank.orangeTowerBase, TextureBank.orangeTowerCannon,ProjectileType.orangeTowerProjectile, 50, 120, 25, 1);
 	
 	Texture towerBase;
 	Texture towerCannon;
@@ -21,7 +21,7 @@ public enum TowerType {
 		this.projectileType = projectileType;
 		this.dmg = dmg;
 		this.range = range;
-		this.cost = cost;
 		this.attackSpeed = as;
+		this.cost = cost;
 	}
 }

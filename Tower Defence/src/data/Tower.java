@@ -19,10 +19,12 @@ public abstract class Tower implements Entity {
 	private CopyOnWriteArrayList<Enemy> enemies;
 	public ArrayList<Projectile> projectiles;
 	private boolean targeted;
+	public TowerType type;
 
 	public Tower(TowerType type, Tile startTile, CopyOnWriteArrayList<Enemy> enemies) {
 		baseTexture = type.towerBase;
 		cannonTexture = type.towerCannon;
+		this.type = type;
 		this.range = type.range;
 		this.firingSpeed = type.attackSpeed;
 		this.angle = 0f;

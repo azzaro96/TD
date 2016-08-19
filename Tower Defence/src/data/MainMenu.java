@@ -17,7 +17,7 @@ public class MainMenu {
 	public MainMenu(){
 		background = TextureBank.splashScreen;
 		menuUI = new UI();
-		menuUI.addButton("Play", "play", WIDTH / 2 - 256, (int) (HEIGHT * 0.65f));
+		menuUI.addButton("Play", TextureBank.playButton, WIDTH / 2 - 256, (int) (HEIGHT * 0.65f));
 	}
 	
 	private void updateButtons(){
