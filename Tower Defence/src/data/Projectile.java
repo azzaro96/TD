@@ -5,7 +5,7 @@ import static helpers.Artist.checkCollision;
 import static helpers.Artist.drawQuadTex;
 import static helpers.Clock.Delta;
 
-import java.util.ArrayList;
+
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.newdawn.slick.opengl.Texture;
