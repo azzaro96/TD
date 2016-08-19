@@ -1,28 +1,48 @@
 package data;
 
+import static helpers.Artist.HEIGHT;
+import static helpers.Artist.TILE_SIZE;
+
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import helpers.Clock;
 
-import static helpers.Artist.*;
-
-import java.util.ArrayList;
-
 
 public class Player {
+	public static int Cash, Lives;
 	private TileGrid grid;
 	private WaveManager waveManager;
-	private ArrayList<Tower> towerList;
+	private CopyOnWriteArrayList<Tower> towerList;
 	private boolean leftMouseButton = false;
 	private boolean rightMouseButton = false;
 	public Player(TileGrid grid, WaveManager waveManager) {
 		this.grid = grid;
 		this.waveManager = waveManager;
-		this.towerList = new ArrayList<Tower>();
+		this.towerList = new CopyOnWriteArrayList<Tower>();
 	}
 	
+	public void setup(){
+		Cash = 50;
+		Lives = 10;
+	}
 	
+	public static boolean modifyCash(int amount){
+		if(Cash + amount >= 0){
+			Cash += amount;
+			System.out.println(Cash);
+			return true;
+		}
+		System.out.println(Cash);
+		return false;
+		
+	}
+	
+	public static void modifyLives(int amount){
+		Lives += amount;
+	}
 
 	public void SetTile() {
 		grid.SetTile((int) Math.floor(Mouse.getX() / TILE_SIZE), (int) Math.floor((HEIGHT - Mouse.getY() - 1) / TILE_SIZE),
@@ -39,6 +59,7 @@ public class Player {
 
 		// Mouse input
 		if (Mouse.isButtonDown(0) && !leftMouseButton) {
+			if (modifyCash(-25))
 			towerList.add(new TowerCannonBlue(TowerType.orangeTower, grid.getTile( (int) Mouse.getX() / TILE_SIZE, (int) (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), 
 					waveManager.getCurrentWave().getEnemyList()));
 		}

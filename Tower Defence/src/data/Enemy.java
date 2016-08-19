@@ -62,7 +62,7 @@ public class Enemy implements Entity {
 	}
 
 	/**
-	 * @return nista 
+	 * @return nista
 	 * @opis skenira mapu i stvara arrayList checkPoint-ova
 	 */
 	private void populateCheckPointList() {
@@ -73,18 +73,19 @@ public class Enemy implements Entity {
 		boolean cont = true;
 
 		while (cont) {
-			
+
 			// trenutni smer
 			int[] currentD = findNextD(checkPoints.get(counter).getTile());
-			
-			// proverava da li postoji smer, 2 je znak da ne postoji i da je metoda zavrsena
+
+			// proverava da li postoji smer, 2 je znak da ne postoji i da je
+			// metoda zavrsena
 			if (currentD[0] == 2) {
 				cont = false;
 			} else {
-				
+
 				// iterativno trazi checkPoint-ove
 				directions = findNextD(checkPoints.get(counter).getTile());
-				checkPoints.add(findNextC(checkPoints.get(counter).getTile(),directions));
+				checkPoints.add(findNextC(checkPoints.get(counter).getTile(), directions));
 			}
 			counter++;
 		}
@@ -97,9 +98,9 @@ public class Enemy implements Entity {
 	public void draw() {
 		float healthPercentage = health / maxHealth;
 		drawQuadTex(texture, x, y, width, height);
-		
-		//ovo sam eksperimentalno utvrdio da izgleda "dobro"
-		drawQuadTex(healthBar, x + width*0.05f, y , width * 0.9f * healthPercentage, 4);
+
+		// ovo sam eksperimentalno utvrdio da izgleda "dobro"
+		drawQuadTex(healthBar, x + width * 0.05f, y, width * 0.9f * healthPercentage, 4);
 	}
 
 	public void update() {
@@ -109,7 +110,7 @@ public class Enemy implements Entity {
 			if (checkPointReached()) {
 				// stigao do poslednjeg checkPoint-a
 				if (currentCheckPoint + 1 == checkPoints.size()) {
-					die();
+					endReached();
 				} else
 					currentCheckPoint++;
 			} else {
@@ -132,10 +133,11 @@ public class Enemy implements Entity {
 
 			int potentialCPXCoord = s.getXPlace() + dir[0] * counter;
 			int potentialCPYCoord = s.getYPlace() + dir[1] * counter;
-			
-			// ako sledeci tile u tom smeru u kom se krip krece se razlikuje od predhodnog tile-a u tom smeru
-			if ((potentialCPXCoord == grid.getTilesWide() || potentialCPYCoord == grid.getTilesHigh()) || 
-					s.getType() != grid.getTile(potentialCPXCoord, potentialCPYCoord).getType()) {
+
+			// ako sledeci tile u tom smeru u kom se krip krece se razlikuje od
+			// predhodnog tile-a u tom smeru
+			if ((potentialCPXCoord == grid.getTilesWide() || potentialCPYCoord == grid.getTilesHigh())
+					|| s.getType() != grid.getTile(potentialCPXCoord, potentialCPYCoord).getType()) {
 				found = true;
 				counter -= 1;
 				next = grid.getTile(s.getXPlace() + dir[0] * counter, s.getYPlace() + dir[1] * counter);
@@ -147,9 +149,15 @@ public class Enemy implements Entity {
 		return c;
 	}
 
+	private void endReached() {
+		Player.modifyLives(-1);
+		die();
+	}
+
 	/**
 	 * 
-	 * @param Tile na kome se krip trenutno nalazi
+	 * @param Tile
+	 *            na kome se krip trenutno nalazi
 	 * @return dvodimenzionalni vektor smera
 	 */
 	private int[] findNextD(Tile s) {
@@ -178,22 +186,25 @@ public class Enemy implements Entity {
 		} else if (s.getType() == d.getType() && directions[1] != -1) {
 			dir[0] = 0;
 			dir[1] = 1;
-		} else { //ako ne moze da nadje sledeci smer
+		} else { // ako ne moze da nadje sledeci smer
 			dir[0] = 2;
 			dir[1] = 2;
 		}
 
 		return dir;
 	}
+
 	/**
 	 * 
 	 * @param dmg
-	 * prima damage
+	 *            prima damage
 	 */
 	public void damage(int dmg) {
 		health -= dmg;
-		if (health <= 0)
+		if (health <= 0) {
 			die();
+			Player.modifyCash(10);
+		}
 	}
 
 	public int getWidth() {

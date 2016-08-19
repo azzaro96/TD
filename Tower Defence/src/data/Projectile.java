@@ -1,11 +1,14 @@
 package data;
 
-import static helpers.Clock.*;
+import static helpers.Artist.TILE_SIZE;
+import static helpers.Artist.checkCollision;
+import static helpers.Artist.drawQuadTex;
+import static helpers.Clock.Delta;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.newdawn.slick.opengl.Texture;
-import static helpers.Artist.*;
 
 public class Projectile implements Entity {
 
@@ -15,12 +18,12 @@ public class Projectile implements Entity {
 	private Enemy target;
 	private float xVelocity, yVelocity;
 	private boolean alive;
-	private ArrayList<Enemy> wave;
+	private CopyOnWriteArrayList<Enemy> wave;
 	
 	
 	//dotat arraylist wave u konstruktoru, izmenjena klasa tower
 	public Projectile(Texture t, Enemy target, float x, float y, int w, int h, float speed, int dmg,
-			ArrayList<Enemy> wave) {
+			CopyOnWriteArrayList<Enemy> wave) {
 		texture = t;
 		this.target = target;
 		this.x = x;

@@ -1,10 +1,15 @@
 package data;
 
-import org.newdawn.slick.opengl.Texture;
-import static helpers.Artist.*;
+import static helpers.Artist.TILE_SIZE;
+import static helpers.Artist.drawQuadTex;
+import static helpers.Artist.drawQuadTexRot;
+import static helpers.Artist.quickLoad;
 import static helpers.Clock.Delta;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.newdawn.slick.opengl.Texture;
 
 public abstract class Tower implements Entity {
 
@@ -12,11 +17,11 @@ public abstract class Tower implements Entity {
 	private int width, height, damage, range;
 	private Enemy target;
 	private Texture baseTexture, cannonTexture;
-	private ArrayList<Enemy> enemies;
+	private CopyOnWriteArrayList<Enemy> enemies;
 	private ArrayList<Projectile> projectiles;
 	private boolean targeted;
 
-	public Tower(TowerType type, Tile startTile, ArrayList<Enemy> enemies) {
+	public Tower(TowerType type, Tile startTile, CopyOnWriteArrayList<Enemy> enemies) {
 		baseTexture = type.towerBase;
 		cannonTexture = type.towerCannon;
 		this.damage = type.dmg;
@@ -39,7 +44,7 @@ public abstract class Tower implements Entity {
 		Enemy closest = null;
 		float closestDistance = 10000;
 		for (Enemy e : enemies) {
-			if (isInRange(e) && findDistance(e) < closestDistance) {
+			if (isInRange(e) && findDistance(e) < closestDistance && e.isAlive()) {
 				closest = e;
 				closestDistance = findDistance(e);
 			}
@@ -71,17 +76,21 @@ public abstract class Tower implements Entity {
 
 	public void shoot() {
 		timeSinceLastShot = 0;
-		projectiles.add(
-				new Projectile(quickLoad("bullet"), target, x + TILE_SIZE / 4, y + TILE_SIZE / 4, 16, 16, 360, 40, enemies));
+		projectiles.add(new Projectile(quickLoad("bullet"), target, x + TILE_SIZE / 4, y + TILE_SIZE / 4, 16, 16, 360,
+				40, enemies));
 	}
 
-	public void updateEnemyList(ArrayList<Enemy> enemyList) {
+	public void updateEnemyList(CopyOnWriteArrayList<Enemy> enemyList) {
 		enemies = enemyList;
 	}
 
 	public void update() {
 		if (!targeted) {
 			target = acquireTarget();
+		} else {
+			angle = calcAngle() - 50;
+			if (timeSinceLastShot > firingSpeed)
+				shoot();
 		}
 
 		if (target == null || target.isAlive() == false)
@@ -90,13 +99,10 @@ public abstract class Tower implements Entity {
 		if (targeted == true) {
 
 			timeSinceLastShot += Delta();
-			if (timeSinceLastShot > firingSpeed)
-				shoot();
 
 			for (Projectile p : projectiles) {
 				p.update();
 			}
-			angle = calcAngle() - 50;
 			draw();
 		}
 	}

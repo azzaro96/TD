@@ -24,6 +24,7 @@ public class Game {
 				20);
 		
 		player = new Player(grid, waveManager);
+		player.setup();
 		//blue = new TowerCannonBlue(quickLoad("towerBaseGreen"), quickLoad("towerGunGreen"), 128, 128, 32, 32);
 	}
 	
