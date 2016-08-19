@@ -37,7 +37,9 @@ public class Projectile implements Entity {
 		alive = true;
 		this.wave = wave;
 	}
-
+	/**
+	 * racuna smer u kom treba projektil da se krece
+	 */
 	private void calcDirection() {
 		float totalAllowedMovement = 1.0f;
 		float xDistFromTarget = Math.abs(target.getX() + TILE_SIZE / 4 - x);
@@ -54,16 +56,8 @@ public class Projectile implements Entity {
 		}
 	}
 
-	/*
-	 * public void update() { if(alive) { x += Delta() * speed * xVelocity; y +=
-	 * Delta() * speed * yVelocity; // calcDirection(); if(checkCollision(x, y,
-	 * width, height, target.getX(), target.getY(), target.getWidth(),
-	 * target.getHeight())) { target.damage(damage); alive = false; } draw(); }
-	 * }
-	 */
 	
-	
-	//ceo wave proverava da l je pogodio metak
+	//ceo wave proverava da li je pogodio metak
 	public void update() {
 		if (alive) {
 			x += Delta() * speed * xVelocity;

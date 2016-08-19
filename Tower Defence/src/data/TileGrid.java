@@ -7,7 +7,7 @@ public class TileGrid {
 	private int tilesWide, tilesHigh;
 	public TileGrid() {
 		
-		map = new Tile[20][15];
+		map = new Tile[tilesWide][tilesHigh];
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 				map[i][j] = new Tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Land);
@@ -18,7 +18,7 @@ public class TileGrid {
 	public TileGrid(int[][] newMap) {
 		this.tilesWide = newMap[0].length;
 		this.tilesHigh = newMap.length;
-		map = new Tile[20][15];
+		map = new Tile[tilesWide][tilesHigh];
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 				if(newMap[j][i] == 0)

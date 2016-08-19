@@ -50,7 +50,7 @@ public class Player {
 	}
 
 	public void Update() {
-
+		// updejtuje sve tower-e na mapi
 		for (Tower t : towerList) {
 			t.update();
 			t.draw();

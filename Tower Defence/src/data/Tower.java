@@ -13,7 +13,7 @@ import org.newdawn.slick.opengl.Texture;
 public abstract class Tower implements Entity {
 
 	private float x, y, timeSinceLastShot, firingSpeed, angle;
-	private int width, height, damage, range, towerCost;
+	private int width, height, range, towerCost;
 	private Enemy target;
 	private Texture baseTexture, cannonTexture;
 	private CopyOnWriteArrayList<Enemy> enemies;
@@ -23,7 +23,6 @@ public abstract class Tower implements Entity {
 	public Tower(TowerType type, Tile startTile, CopyOnWriteArrayList<Enemy> enemies) {
 		baseTexture = type.towerBase;
 		cannonTexture = type.towerCannon;
-		this.damage = type.dmg;
 		this.range = type.range;
 		this.firingSpeed = type.attackSpeed;
 		this.angle = 0f;
@@ -41,13 +40,16 @@ public abstract class Tower implements Entity {
 
 	private Enemy acquireTarget() {
 		Enemy closest = null;
+		// proizvoljna vrednost veca od dimenzija ekrana
 		float closestDistance = 10000;
+		// petlja nalazi najblizeg kripa koji je u dometu tower-a
 		for (Enemy e : enemies) {
 			if (isInRange(e) && findDistance(e) < closestDistance && e.isAlive()) {
 				closest = e;
 				closestDistance = findDistance(e);
 			}
 		}
+		// ako postoji takav krip
 		if (closest != null)
 			targeted = true;
 		return closest;
@@ -72,7 +74,7 @@ public abstract class Tower implements Entity {
 		double angleTemp = Math.atan2(target.getY() - y, target.getX() - x);
 		return (float) Math.toDegrees(angleTemp) - 90;
 	}
-
+	
 	public abstract void shoot(Enemy target);
 
 	public void updateEnemyList(CopyOnWriteArrayList<Enemy> enemyList) {

@@ -24,10 +24,12 @@ public class Enemy implements Entity {
 	private Tile startTile;
 	private TileGrid grid;
 	private ArrayList<CheckPoint> checkPoints;
-	private boolean first = true, alive = true;
+	private boolean first, alive;
 	private int[] directions;
 
 	public Enemy(Texture t, Tile startTile, TileGrid grid, int width, int height, float speed, float hp) {
+		this.first = true;
+		this.alive = true;
 		texture = t;
 		this.healthBar = TextureBank.healthBarGreen;
 		this.startTile = startTile;
@@ -122,6 +124,8 @@ public class Enemy implements Entity {
 	}
 
 	public void update() {
+		
+		// pita da li je prvi put pozvana metoda
 		if (first)
 			first = false;
 		else {
@@ -138,7 +142,12 @@ public class Enemy implements Entity {
 			}
 		}
 	}
-
+	/**
+	 * 
+	 * @param trenutni Tile na kome se krip nalazi
+	 * @param smer u kom se trenutno krece
+	 * @return
+	 */
 	private CheckPoint findNextC(Tile s, int[] dir) {
 		Tile next = null;
 		CheckPoint c = null;
