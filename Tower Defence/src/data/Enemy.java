@@ -8,18 +8,19 @@ import java.util.ArrayList;
 
 public class Enemy implements Entity {
 
-	private int width, height, health, currentCheckPoint;
+	private int width, height, currentCheckPoint;
 	// i status treba da se ubaci
-	private float speed, x, y;
-	private Texture texture;
+	private float speed, x, y, health, maxHealth;
+	private Texture texture, healthBar;
 	private Tile startTile;
 	private TileGrid grid;
 	private ArrayList<CheckPoint> checkPoints;
 	private boolean first = true, alive = true;
 	private int[] directions;
 
-	public Enemy(Texture t, Tile startTile, TileGrid grid, int width, int height, float speed, int hp) {
+	public Enemy(Texture t, Tile startTile, TileGrid grid, int width, int height, float speed, float hp) {
 		texture = t;
+		this.healthBar = quickLoad("healthBar");
 		this.startTile = startTile;
 		this.x = startTile.getX();
 		this.y = startTile.getY();
@@ -27,7 +28,8 @@ public class Enemy implements Entity {
 		this.height = height;
 		this.speed = speed;
 		this.grid = grid;
-		health = hp;
+		this.maxHealth = hp;
+		this.health = maxHealth;
 		this.checkPoints = new ArrayList<CheckPoint>();
 		this.directions = new int[2];
 		// x direction
@@ -93,7 +95,11 @@ public class Enemy implements Entity {
 	}
 
 	public void draw() {
+		float healthPercentage = health / maxHealth;
 		drawQuadTex(texture, x, y, width, height);
+		
+		//ovo sam eksperimentalno utvrdio da izgleda "dobro"
+		drawQuadTex(healthBar, x + width*0.05f, y , width * 0.9f * healthPercentage, 4);
 	}
 
 	public void update() {
@@ -206,11 +212,11 @@ public class Enemy implements Entity {
 		this.height = height;
 	}
 
-	public int getHealth() {
+	public float getHealth() {
 		return health;
 	}
 
-	public void setHealth(int health) {
+	public void setHealth(float health) {
 		this.health = health;
 	}
 
