@@ -1,11 +1,20 @@
 package data;
 
 import org.newdawn.slick.opengl.Texture;
+
+import helpers.TextureBank;
+
 import static helpers.Artist.*;
 import static helpers.Clock.*;
 
 import java.util.ArrayList;
 
+
+
+/**
+ * @author Dzoni
+ *
+ */
 public class Enemy implements Entity {
 
 	private int width, height, currentCheckPoint;
@@ -20,7 +29,7 @@ public class Enemy implements Entity {
 
 	public Enemy(Texture t, Tile startTile, TileGrid grid, int width, int height, float speed, float hp) {
 		texture = t;
-		this.healthBar = quickLoad("healthBar");
+		this.healthBar = TextureBank.healthBarGreen;
 		this.startTile = startTile;
 		this.x = startTile.getX();
 		this.y = startTile.getY();
@@ -100,6 +109,15 @@ public class Enemy implements Entity {
 		drawQuadTex(texture, x, y, width, height);
 
 		// ovo sam eksperimentalno utvrdio da izgleda "dobro"
+		
+		//odredjuje boju healthBar-a
+		if (healthPercentage > 0.6) {
+			healthBar = TextureBank.healthBarGreen;
+		} else if (healthPercentage > 0.3 && healthPercentage <= 0.6) {
+			healthBar = TextureBank.healthBarYellow;
+		} else {
+			healthBar = TextureBank.healthBarRed;
+		}
 		drawQuadTex(healthBar, x + width * 0.05f, y, width * 0.9f * healthPercentage, 4);
 	}
 
@@ -148,7 +166,11 @@ public class Enemy implements Entity {
 		c = new CheckPoint(next, dir[0], dir[1]);
 		return c;
 	}
-
+	
+	
+	/**
+	 * Oduzima zivot igracu i krip umire
+	 */
 	private void endReached() {
 		Player.modifyLives(-1);
 		die();
@@ -197,7 +219,7 @@ public class Enemy implements Entity {
 	/**
 	 * 
 	 * @param dmg
-	 *            prima damage
+	 * prima damage, ako umre daje igracu pare
 	 */
 	public void damage(int dmg) {
 		health -= dmg;

@@ -60,11 +60,11 @@ public class Player {
 		// Mouse input
 		if (Mouse.isButtonDown(0) && !leftMouseButton) {
 			if (modifyCash(-25))
-			towerList.add(new TowerCannonBlue(TowerType.orangeTower, grid.getTile( (int) Mouse.getX() / TILE_SIZE, (int) (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), 
+			towerList.add(new OrangeTower(TowerType.orangeTower, grid.getTile( (int) Mouse.getX() / TILE_SIZE, (int) (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), 
 					waveManager.getCurrentWave().getEnemyList()));
 		}
 		if (Mouse.isButtonDown(1) && !rightMouseButton) {
-			towerList.add(new TowerCannonBlue(TowerType.greenTower, grid.getTile( (int) Mouse.getX() / TILE_SIZE, (int) (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), 
+			towerList.add(new GreenTower(TowerType.greenTower, grid.getTile( (int) Mouse.getX() / TILE_SIZE, (int) (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), 
 					waveManager.getCurrentWave().getEnemyList()));
 		}
 		

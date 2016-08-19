@@ -6,6 +6,7 @@ import org.newdawn.slick.opengl.Texture;
 import UI.UI;
 import helpers.StateManager;
 import helpers.StateManager.GameState;
+import helpers.TextureBank;
 
 import static helpers.Artist.*;
 
@@ -14,7 +15,7 @@ public class MainMenu {
 	private Texture background;
 	private UI menuUI;
 	public MainMenu(){
-		background = quickLoad("splash");
+		background = TextureBank.splashScreen;
 		menuUI = new UI();
 		menuUI.addButton("Play", "play", WIDTH / 2 - 256, (int) (HEIGHT * 0.65f));
 	}

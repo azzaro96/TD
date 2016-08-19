@@ -22,16 +22,15 @@ public class Projectile implements Entity {
 	
 	
 	//dotat arraylist wave u konstruktoru, izmenjena klasa tower
-	public Projectile(Texture t, Enemy target, float x, float y, int w, int h, float speed, int dmg,
-			CopyOnWriteArrayList<Enemy> wave) {
-		texture = t;
+	public Projectile(ProjectileType type, Enemy target, float x, float y, int w, int h, CopyOnWriteArrayList<Enemy> wave) {
+		texture = type.texture;
 		this.target = target;
 		this.x = x;
 		this.y = y;
 		width = w;
 		height = h;
-		this.speed = speed;
-		damage = dmg;
+		this.speed = type.speed;
+		damage = type.dmg;
 		this.xVelocity = 0f;
 		this.yVelocity = 0f;
 		calcDirection();
@@ -82,7 +81,7 @@ public class Projectile implements Entity {
 	}
 
 	public void draw() {
-		drawQuadTex(texture, x, y, 16, 16);
+		drawQuadTex(texture, x, y, texture.getImageWidth(), texture.getImageHeight());
 	}
 
 	@Override

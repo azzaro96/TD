@@ -2,13 +2,15 @@ package data;
 
 import static helpers.Artist.*;
 
+import helpers.TextureBank;
+
 
 public class Game {
 	
 	private TileGrid grid;
 	private Player player;
 	private WaveManager waveManager;
-	private TowerCannonBlue blue;
+
 	
 	
 	
@@ -19,18 +21,16 @@ public class Game {
 		grid = new TileGrid(map);
 		
 		waveManager = new WaveManager(
-				new Enemy(quickLoad("creep"), grid.getTile(3, 0), grid, TILE_SIZE, TILE_SIZE, 60, 150), 
+				new Enemy(TextureBank.basicCreep, grid.getTile(3, 0), grid, TILE_SIZE, TILE_SIZE, 60, 150), 
 				0.5f,
 				20);
 		
 		player = new Player(grid, waveManager);
 		player.setup();
-		//blue = new TowerCannonBlue(quickLoad("towerBaseGreen"), quickLoad("towerGunGreen"), 128, 128, 32, 32);
 	}
 	
 	public void update(){
 		grid.draw();
-		//blue.draw();
 		waveManager.update();
 		player.Update();	
 		

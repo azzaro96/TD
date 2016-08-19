@@ -14,11 +14,11 @@ import org.newdawn.slick.opengl.Texture;
 public abstract class Tower implements Entity {
 
 	private float x, y, timeSinceLastShot, firingSpeed, angle;
-	private int width, height, damage, range;
+	private int width, height, damage, range, towerCost;
 	private Enemy target;
 	private Texture baseTexture, cannonTexture;
 	private CopyOnWriteArrayList<Enemy> enemies;
-	private ArrayList<Projectile> projectiles;
+	public ArrayList<Projectile> projectiles;
 	private boolean targeted;
 
 	public Tower(TowerType type, Tile startTile, CopyOnWriteArrayList<Enemy> enemies) {
@@ -74,11 +74,7 @@ public abstract class Tower implements Entity {
 		return (float) Math.toDegrees(angleTemp) - 90;
 	}
 
-	public void shoot() {
-		timeSinceLastShot = 0;
-		projectiles.add(new Projectile(quickLoad("bullet"), target, x + TILE_SIZE / 4, y + TILE_SIZE / 4, 16, 16, 360,
-				40, enemies));
-	}
+	public abstract void shoot(Enemy target);
 
 	public void updateEnemyList(CopyOnWriteArrayList<Enemy> enemyList) {
 		enemies = enemyList;
@@ -89,8 +85,10 @@ public abstract class Tower implements Entity {
 			target = acquireTarget();
 		} else {
 			angle = calcAngle() - 50;
-			if (timeSinceLastShot > firingSpeed)
-				shoot();
+			if (timeSinceLastShot > firingSpeed) {
+				shoot(target);
+				timeSinceLastShot = 0;
+			}
 		}
 
 		if (target == null || target.isAlive() == false)
@@ -106,7 +104,11 @@ public abstract class Tower implements Entity {
 			draw();
 		}
 	}
-
+	//skracena verzija stvaranja projektila
+	public void spawnProjectile(ProjectileType type){
+		projectiles.add(new Projectile(type, target, x + type.texture.getImageWidth() / 2, y + type.texture.getImageHeight() /2, width, height, enemies));
+	}
+	
 	public void draw() {
 		drawQuadTex(baseTexture, x, y, width, height);
 		drawQuadTexRot(cannonTexture, x, y, width, height, angle);
