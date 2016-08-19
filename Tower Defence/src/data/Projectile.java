@@ -1,11 +1,13 @@
 package data;
 
-
 import static helpers.Clock.*;
+
+import java.util.ArrayList;
+
 import org.newdawn.slick.opengl.Texture;
 import static helpers.Artist.*;
 
-public class Projectile implements Entity{
+public class Projectile implements Entity {
 
 	private Texture texture;
 	private float x, y, speed;
@@ -13,8 +15,12 @@ public class Projectile implements Entity{
 	private Enemy target;
 	private float xVelocity, yVelocity;
 	private boolean alive;
+	private ArrayList<Enemy> wave;
 	
-	public Projectile(Texture t, Enemy target, float x, float y, int w, int h, float speed, int dmg) {
+	
+	//dotat arraylist wave u konstruktoru, izmenjena klasa tower
+	public Projectile(Texture t, Enemy target, float x, float y, int w, int h, float speed, int dmg,
+			ArrayList<Enemy> wave) {
 		texture = t;
 		this.target = target;
 		this.x = x;
@@ -27,12 +33,13 @@ public class Projectile implements Entity{
 		this.yVelocity = 0f;
 		calcDirection();
 		alive = true;
+		this.wave = wave;
 	}
 
 	private void calcDirection() {
 		float totalAllowedMovement = 1.0f;
-		float xDistFromTarget = Math.abs(target.getX() + TILE_SIZE/4 - x);
-		float yDistFromTarget = Math.abs(target.getY() + TILE_SIZE/4 - y);
+		float xDistFromTarget = Math.abs(target.getX() + TILE_SIZE / 4 - x);
+		float yDistFromTarget = Math.abs(target.getY() + TILE_SIZE / 4 - y);
 		float totalDist = xDistFromTarget + yDistFromTarget;
 		float xPercentOfMovement = xDistFromTarget / totalDist;
 		xVelocity = xPercentOfMovement;
@@ -45,14 +52,27 @@ public class Projectile implements Entity{
 		}
 	}
 
+	/*
+	 * public void update() { if(alive) { x += Delta() * speed * xVelocity; y +=
+	 * Delta() * speed * yVelocity; // calcDirection(); if(checkCollision(x, y,
+	 * width, height, target.getX(), target.getY(), target.getWidth(),
+	 * target.getHeight())) { target.damage(damage); alive = false; } draw(); }
+	 * }
+	 */
+	
+	
+	//ceo wave proverava da l je pogodio metak
 	public void update() {
-		if(alive) {
+		if (alive) {
 			x += Delta() * speed * xVelocity;
 			y += Delta() * speed * yVelocity;
 			// calcDirection();
-			if(checkCollision(x, y, width, height, target.getX(), target.getY(), target.getWidth(), target.getHeight())) {
-				target.damage(damage);
-				alive = false;
+			for (Enemy e : wave) {
+				if (checkCollision(x, y, width, height, e.getX(), e.getY(), e.getWidth(),
+						e.getHeight())) {
+					e.damage(damage);
+					alive = false;
+				}
 			}
 			draw();
 		}
