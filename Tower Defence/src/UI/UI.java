@@ -2,7 +2,6 @@ package UI;
 
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import static helpers.Artist.*;
 
@@ -128,8 +127,7 @@ public class UI {
 		public void draw() {
 			int i =0;
 			for (Button b : menuButtons) {
-				drawQuadTex(b.getTexture(), b.getX(), b.getY(), b.getWidth(), b.getHeight());
-				drawString(b.getX(), b.getY(),"" + towerCosts[i++]);
+				b.draw();
 			}
 		}
 

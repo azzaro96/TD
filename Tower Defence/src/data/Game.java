@@ -60,8 +60,8 @@ public class Game {
 		gameUI = new UI();
 		
 		gameUI.createMenu("TowerPicker", 640, 2*TILE_SIZE, 5*TILE_SIZE, HEIGHT, 2,  0);
-		gameUI.getMenu("TowerPicker").addButton(new Button("Orange Tower", TextureBank.orangeTowerFull, 0, 0));
-		gameUI.getMenu("TowerPicker").addButton(new Button("Green Tower", TextureBank.greenTowerFull, 0, 0));
+		gameUI.getMenu("TowerPicker").addButton(new Button("Orange Tower","" + TowerType.orangeTower.getCost(), TextureBank.orangeTowerFull, 0, 0));
+		gameUI.getMenu("TowerPicker").addButton(new Button("Green Tower","" + TowerType.orangeTower.getCost() , TextureBank.greenTowerFull, 0, 0));
 		
 		gameUI.createMenu("SpeedControl", 640, 270, 2*TILE_SIZE, 3*TILE_SIZE, 3, 0);
 		//gameUI.getMenu("SpeedControl").addButton(new Button("Normal", TextureBank.land, 0, 0));

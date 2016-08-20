@@ -1,15 +1,26 @@
 package UI;
 
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.*;
+import static helpers.Artist.*;
 
+import java.awt.Font;
 public class Button {
 	
-	private String name;
+	private String name, caption;
 	private Texture texture;
 	private int x, y, width, height;
+	private TrueTypeFont font;
+	private Font awtFont;
 	
-	public Button(String name, Texture texture, int x, int y, int width, int height) {
-		super();
+	public Button(){
+		awtFont = new Font("Arial", Font.BOLD, 12);
+		font = new TrueTypeFont(awtFont, false);
+	}
+	
+	public Button(String name, String caption, Texture texture, int x, int y, int width, int height) {
+		this();
+		this.caption = caption;
 		this.name = name;
 		this.texture = texture;
 		this.x = x;
@@ -19,7 +30,7 @@ public class Button {
 	}
 
 	public Button(String name, Texture texture, int x, int y) {
-		super();
+		this();
 		this.name = name;
 		this.texture = texture;
 		this.x = x;
@@ -27,7 +38,31 @@ public class Button {
 		this.width = texture.getImageWidth();
 		this.height = texture.getImageHeight();
 	}
+	
+	
 
+	public Button(String name, String caption, Texture texture, int x, int y) {
+		this();
+		this.name = name;
+		this.width = texture.getImageWidth();
+		this.height = texture.getImageHeight();
+		this.caption = caption;
+		this.texture = texture;
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void drawString(int x, int y, String text){
+		if(caption == null) return;
+		font.drawString(x, y, text);
+	}
+	
+	public void draw(){
+		drawQuadTex(texture, x, y, width, height);
+		drawString(x, y, caption);
+		
+	}
+	
 	public String getName() {
 		return name;
 	}
