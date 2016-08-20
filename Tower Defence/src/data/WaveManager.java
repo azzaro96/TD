@@ -3,7 +3,7 @@ package data;
 import static helpers.Clock.*;
 
 public class WaveManager {
-	private float timeSinceLastWave, timeBetweenEnemies, timeBetweenWaves;
+	private float timeSinceLastWave, timeBetweenEnemies, timeBetweenWaves, difficultyFactor;
 	private int waveNumber, enemiesPerWave;
 	private Enemy enemyType;
 	private Wave currentWave;
@@ -15,6 +15,7 @@ public class WaveManager {
 		this.timeSinceLastWave = 0;
 		this.waveNumber = 0;
 		this.timeBetweenWaves = 7;
+		this.difficultyFactor = 1.15f;
 		this.currentWave = null;
 
 		newWave();
@@ -33,6 +34,7 @@ public class WaveManager {
 	}
 
 	public void newWave() {
+		enemyType.setHealth(enemyType.getHealth() * difficultyFactor);
 		currentWave = new Wave(enemyType, timeBetweenEnemies, enemiesPerWave);
 		waveNumber++;
 		System.out.println("Pocinje " + waveNumber + ". talas");

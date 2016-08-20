@@ -21,7 +21,7 @@ public class UI {
 	public UI() {
 		this.buttonList = new ArrayList<Button>();
 		this.menuList = new ArrayList<Menu>();
-		awtFont = new Font("Arial", Font.PLAIN, 12);
+		awtFont = new Font("Arial", Font.BOLD, 12);
 		font = new TrueTypeFont(awtFont, false);
 	}
 	
