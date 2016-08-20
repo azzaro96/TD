@@ -6,7 +6,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GreenTower extends Tower {
 	
-	public GreenTower(TowerType type, Tile startTile, CopyOnWriteArrayList<Enemy> enemies) {
+	public GreenTower(TowerType type, Tile startTile, CopyOnWriteArrayList<Creep> enemies) {
 		super(type, startTile, enemies);
 	}
 
@@ -15,7 +15,7 @@ public class GreenTower extends Tower {
 	/**
 	 * samo skracena verzija
 	 */
-	public void shoot(Enemy target) {
+	public void shoot(Creep target) {
 		super.spawnProjectile(ProjectileType.greenTowerProjectile);
 	}
 }

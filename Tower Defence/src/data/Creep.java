@@ -12,32 +12,32 @@ import java.util.ArrayList;
  * @author Dzoni
  *
  */
-public class Enemy implements Entity {
+public class Creep implements Entity {
 
 	private int width, height, currentCheckPoint;
-	private float speed, x, y, health, maxHealth;
-	private Texture texture, healthBar;
+	private float  x, y, currentHealth;
+	private Texture healthBar;
 	private float[] effectsTimer;
-	private Tile startTile;
+	public Tile startTile;
 	private TileGrid grid;
+	private CreepType creepType;
 	private ArrayList<CheckPoint> checkPoints;
 	private boolean first, alive;
 	private int[] directions;
 
-	public Enemy(Texture t, Tile startTile, TileGrid grid, int width, int height, float speed, float hp) {
+	
+	public Creep(CreepType creepType, Tile startTile, TileGrid grid) {
 		this.first = true;
 		this.alive = true;
-		texture = t;
+		this.creepType = creepType;
 		this.healthBar = TextureBank.healthBarGreen;
 		this.startTile = startTile;
 		this.x = startTile.getX();
 		this.y = startTile.getY();
-		this.width = width;
-		this.height = height;
-		this.speed = speed;
+		this.width = creepType.getTexture().getImageWidth();
+		this.height = creepType.getTexture().getImageHeight();
 		this.grid = grid;
-		this.maxHealth = hp;
-		this.health = maxHealth;
+		this.currentHealth = creepType.getMaxHealth();
 		this.effectsTimer = new float[CSEType.numberOfTypes];
 		for (int i = 0; i < CSEType.numberOfTypes; i++) {
 			this.effectsTimer[i] = 0;
@@ -108,8 +108,8 @@ public class Enemy implements Entity {
 	}
 
 	public void draw() {
-		float healthPercentage = health / maxHealth;
-		drawQuadTex(texture, x, y, width, height);
+		float healthPercentage = currentHealth / creepType.getMaxHealth();
+		drawQuadTex(creepType.getTexture(), x, y, width, height);
 
 		// ovo sam eksperimentalno utvrdio da izgleda "dobro"
 
@@ -139,23 +139,23 @@ public class Enemy implements Entity {
 					currentCheckPoint++;
 			}if (effectsTimer[CSEType.stun] > 0) {
 				effectsTimer[CSEType.stun] -= Delta();
-				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (speed * (1 + CSEType.STUN.getSpeedModifier()));
-				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (speed * (1 + CSEType.STUN.getSpeedModifier()));
+				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (creepType.getSpeed() * (1 + CSEType.STUN.getSpeedModifier()));
+				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (creepType.getSpeed() * (1 + CSEType.STUN.getSpeedModifier()));
 				if (effectsTimer[CSEType.stun] < 0)
 					effectsTimer[CSEType.stun] = 0;
 			}
 			else if (effectsTimer[CSEType.slow] > 0){
 				effectsTimer[CSEType.slow] -= Delta();
-				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (speed * (1 + CSEType.SLOW.getSpeedModifier()));
-				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (speed * (1 + CSEType.SLOW.getSpeedModifier()));
+				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (creepType.getSpeed() * (1 + CSEType.SLOW.getSpeedModifier()));
+				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (creepType.getSpeed() * (1 + CSEType.SLOW.getSpeedModifier()));
 				if (effectsTimer[CSEType.slow] < 0)
 					effectsTimer[CSEType.slow] = 0;
 			} 
 			else {
 				// kretanje
 				
-				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * speed;
-				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * speed;
+				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * creepType.getSpeed();
+				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * creepType.getSpeed();
 
 			}
 		}
@@ -249,10 +249,10 @@ public class Enemy implements Entity {
 	 * prima damage, ako umre daje igracu pare 
 	 */
 	public void damage(int dmg) {
-		health -= dmg;
-		if (health <= 0) {
+		currentHealth -= dmg;
+		if (currentHealth <= 0) {
 			die();
-			Player.modifyCash(5);
+			Player.modifyCash(creepType.getBounty());
 		}
 	}
 
@@ -273,20 +273,20 @@ public class Enemy implements Entity {
 	}
 
 	public float getHealth() {
-		return health;
+		return currentHealth;
 	}
 
 	public void setHealth(float health) {
-		this.health = health;
+		this.currentHealth = health;
 	}
 
-	public float getSpeed() {
-		return speed;
-	}
+	
 
-	public void setSpeed(float speed) {
-		this.speed = speed;
-	}
+	
+
+	
+
+	
 
 	public float getX() {
 		return x;
@@ -304,13 +304,13 @@ public class Enemy implements Entity {
 		this.y = y;
 	}
 
-	public Texture getTexture() {
-		return texture;
-	}
+	
 
-	public void setTexture(Texture texture) {
-		this.texture = texture;
-	}
+	
+
+	
+
+	
 
 	public Tile getStartTile() {
 		return startTile;

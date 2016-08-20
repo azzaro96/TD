@@ -7,21 +7,21 @@ import static helpers.Clock.*;
 
 public class Wave {
 	private float timeSinceLastSpawn, spawnTime;
-	private Enemy enemyType;
-	private CopyOnWriteArrayList<Enemy> enemyList;
+	private CreepType creepType;
+	private CopyOnWriteArrayList<Creep> enemyList;
 	private int enemiesPerWave, enemiesSpawned;
 	private boolean waveComplete;
 
-	public Wave(Enemy enemyType, float spawnTime, int enemiesPerWave) {
+	public Wave(CreepType creepType, float spawnTime, int enemiesPerWave) {
 		this.spawnTime = spawnTime;
-		this.enemyType = enemyType;
+		this.creepType = creepType;
 		this.enemiesPerWave = enemiesPerWave;
 		this.timeSinceLastSpawn = 0;
-		this.enemyList = new CopyOnWriteArrayList<Enemy>();
+		this.enemyList = new CopyOnWriteArrayList<Creep>();
 		this.waveComplete = false;
 		this.enemiesSpawned = 0;
 
-		spawn();
+		spawn(creepType);
 	}
 
 	public void update() {
@@ -29,12 +29,12 @@ public class Wave {
 		if (enemiesSpawned < enemiesPerWave) {
 			timeSinceLastSpawn += Delta();
 			if (timeSinceLastSpawn > spawnTime) {
-				spawn();
+				spawn(creepType);
 				timeSinceLastSpawn = 0;
 			}
 		}
 
-		for (Enemy e : enemyList) {
+		for (Creep e : enemyList) {
 			if (e.isAlive()) {
 				allEnemiesDead = false;
 				e.update();
@@ -49,9 +49,8 @@ public class Wave {
 			waveComplete = true;
 	}
 
-	private void spawn() {
-		enemyList.add(new Enemy(enemyType.getTexture(), enemyType.getStartTile(), enemyType.getGrid(),
-				enemyType.getWidth(), enemyType.getHeight(), enemyType.getSpeed(), enemyType.getHealth()));
+	private void spawn(CreepType creepType) {
+		enemyList.add(new Creep(creepType, TileGrid.startTile , Game.grid));
 		enemiesSpawned++;
 	}
 
@@ -59,7 +58,7 @@ public class Wave {
 		return waveComplete;
 	}
 
-	public CopyOnWriteArrayList<Enemy> getEnemyList() {
+	public CopyOnWriteArrayList<Creep> getEnemyList() {
 		return enemyList;
 	}
 	

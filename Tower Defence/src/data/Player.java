@@ -29,7 +29,7 @@ public class Player {
 	}
 
 	public void setup() {
-		Cash = 50;
+		Cash = 25;
 		Lives = 10;
 	}
 

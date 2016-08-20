@@ -5,6 +5,7 @@ public class TileGrid {
 	
 	public Tile[][] map;
 	private int tilesWide, tilesHigh;
+	public static Tile startTile;
 	public TileGrid() {
 		
 		map = new Tile[tilesWide][tilesHigh];
@@ -13,6 +14,7 @@ public class TileGrid {
 				map[i][j] = new Tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Land);
 			}
 		}
+		startTile = map[3][0];
 	}
 	
 	public TileGrid(int[][] newMap) {
@@ -27,6 +29,7 @@ public class TileGrid {
 					map[i][j] = new Tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Road);
 			}
 		}
+		startTile = map[3][0];
 	}
 	
 	public void draw() {
@@ -53,6 +56,10 @@ public class TileGrid {
 
 	public int getTilesHigh() {
 		return tilesHigh;
+	}
+
+	public Tile getStartTile() {
+		return startTile;
 	}
 	
 	

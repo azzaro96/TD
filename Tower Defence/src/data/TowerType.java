@@ -6,21 +6,20 @@ import helpers.TextureBank;
 
 public enum TowerType {
 	
-	greenTower(TextureBank.greenTowerBase, TextureBank.greenTowerCannon, ProjectileType.greenTowerProjectile, 50, 70, 5, 1),
-	orangeTower(TextureBank.orangeTowerBase, TextureBank.orangeTowerCannon,ProjectileType.orangeTowerProjectile, 100, 120, 25, 1),
-	purpleTower(TextureBank.purpleTowerBase, TextureBank.purpleTowerCannon, ProjectileType.purpleTowerProjectile, 0, 120, 100, 1);
+	greenTower(TextureBank.greenTowerBase, TextureBank.greenTowerCannon, ProjectileType.greenTowerProjectile, 100, 5, 1),
+	orangeTower(TextureBank.orangeTowerBase, TextureBank.orangeTowerCannon,ProjectileType.orangeTowerProjectile, 100, 5, 1),
+	purpleTower(TextureBank.purpleTowerBase, TextureBank.purpleTowerCannon, ProjectileType.purpleTowerProjectile, 200, 5, 1.5f);
 	
 	Texture towerBase;
 	Texture towerCannon;
 	ProjectileType projectileType;
-	int dmg, range, cost;
+	int range, cost;
 	float attackSpeed;
 	
-	TowerType(Texture tb, Texture tc,ProjectileType projectileType, int dmg, int range, int cost, float as) {
+	TowerType(Texture tb, Texture tc,ProjectileType projectileType, int range, int cost, float as) {
 		towerBase = tb;
 		towerCannon = tc;
 		this.projectileType = projectileType;
-		this.dmg = dmg;
 		this.range = range;
 		this.attackSpeed = as;
 		this.cost = cost;
@@ -36,10 +35,6 @@ public enum TowerType {
 
 	public ProjectileType getProjectileType() {
 		return projectileType;
-	}
-
-	public int getDmg() {
-		return dmg;
 	}
 
 	public int getRange() {

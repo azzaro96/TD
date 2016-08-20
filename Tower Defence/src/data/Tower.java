@@ -13,14 +13,14 @@ public abstract class Tower implements Entity {
 
 	private float x, y, timeSinceLastShot, angle;
 	private int width, height;
-	private Enemy target;
+	private Creep target;
 	private Texture baseTexture, cannonTexture;
-	private CopyOnWriteArrayList<Enemy> enemies;
+	private CopyOnWriteArrayList<Creep> enemies;
 	public ArrayList<Projectile> projectiles;
 	private boolean targeted;
 	public TowerType type;
 
-	public Tower(TowerType type, Tile startTile, CopyOnWriteArrayList<Enemy> enemies) {
+	public Tower(TowerType type, Tile startTile, CopyOnWriteArrayList<Creep> enemies) {
 		baseTexture = type.towerBase;
 		cannonTexture = type.towerCannon;
 		this.type = type;
@@ -37,12 +37,12 @@ public abstract class Tower implements Entity {
 
 	// stavio sam da crta iz dva dela, on crta sam bbazu (izgleda)
 
-	private Enemy acquireTarget() {
-		Enemy closest = null;
+	private Creep acquireTarget() {
+		Creep closest = null;
 		// proizvoljna vrednost veca od dimenzija ekrana
 		float closestDistance = 10000;
 		// petlja nalazi najblizeg kripa koji je u dometu tower-a
-		for (Enemy e : enemies) {
+		for (Creep e : enemies) {
 			if (isInRange(e) && findDistance(e) < closestDistance && e.isAlive()) {
 				closest = e;
 				closestDistance = findDistance(e);
@@ -54,14 +54,14 @@ public abstract class Tower implements Entity {
 		return closest;
 	}
 
-	private float findDistance(Enemy e) {
+	private float findDistance(Creep e) {
 		// zasto ne koristi rastojanje izmedju dve tacke, nesto mi je hm hm
 		float xDistance = Math.abs(e.getX() - x);
 		float yDistance = Math.abs(e.getY() - y);
 		return xDistance + yDistance;
 	}
 
-	private boolean isInRange(Enemy e) {
+	private boolean isInRange(Creep e) {
 		float xDistance = Math.abs(e.getX() - x);
 		float yDistance = Math.abs(e.getY() - y);
 		if (xDistance <= type.getRange() && yDistance <= type.getRange())
@@ -74,9 +74,9 @@ public abstract class Tower implements Entity {
 		return (float) Math.toDegrees(angleTemp) - 90;
 	}
 
-	public abstract void shoot(Enemy target);
+	public abstract void shoot(Creep target);
 
-	public void updateEnemyList(CopyOnWriteArrayList<Enemy> enemyList) {
+	public void updateEnemyList(CopyOnWriteArrayList<Creep> enemyList) {
 		enemies = enemyList;
 	}
 

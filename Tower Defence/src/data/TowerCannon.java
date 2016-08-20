@@ -14,13 +14,13 @@ public class TowerCannon {
 	private Texture baseTexture, cannonTexture;
 	private Tile startTile;
 	private ArrayList<Projectile> projectiles;
-	private ArrayList<Enemy> enemies;
-	private Enemy target;
+	private ArrayList<Creep> enemies;
+	private Creep target;
 	private boolean targeted;
 	//konstruktor prima dve teksture umesto jedna jer se razlikuje cannon
 	//i draw crta dva puta
 	
-	public TowerCannon(Texture t1, Texture t2, Tile startTile, int dmg, int range, ArrayList<Enemy> enemies) {
+	public TowerCannon(Texture t1, Texture t2, Tile startTile, int dmg, int range, ArrayList<Creep> enemies) {
 		this.x = startTile.getX();
 		this.y = startTile.getY();
 		this.baseTexture = t1;
@@ -39,10 +39,10 @@ public class TowerCannon {
 		this.projectiles = new ArrayList<Projectile>();
 	}
 	
-	private Enemy acquireTarget(){
-		Enemy closest = null;
+	private Creep acquireTarget(){
+		Creep closest = null;
 		float closestDistance = 10000;
-		for(Enemy e: enemies) {
+		for(Creep e: enemies) {
 			if(isInRange(e) && findDistance(e) < closestDistance) {
 				closest = e;
 				closestDistance = findDistance(e);
@@ -53,7 +53,7 @@ public class TowerCannon {
 		return closest;
 	}
 	
-	private boolean isInRange(Enemy e) {
+	private boolean isInRange(Creep e) {
 		float xDistance = Math.abs(e.getX() - x);
 		float yDistance = Math.abs(e.getY() - y);
 		if(xDistance <= range && yDistance <= range)
@@ -61,7 +61,7 @@ public class TowerCannon {
 		return false;
 	}
 	
-	private float findDistance(Enemy e) {
+	private float findDistance(Creep e) {
 		//zasto ne koristi rastojanje izmedju dve tacke, nesto mi je hm hm
 		float xDistance = Math.abs(e.getX() - x);
 		float yDistance = Math.abs(e.getY() - y);
@@ -104,7 +104,7 @@ public class TowerCannon {
 		drawQuadTexRot(cannonTexture, x, y, width, height, angle - 60);
 	}
 
-	public void updateEnemyList(ArrayList<Enemy> enemyList) {
+	public void updateEnemyList(ArrayList<Creep> enemyList) {
 		enemies = enemyList;		
 	}
 }

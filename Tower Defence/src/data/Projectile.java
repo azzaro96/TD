@@ -16,14 +16,14 @@ public class Projectile implements Entity {
 	private Texture texture;
 	private float x, y;
 	private int width, height;
-	private Enemy target;
+	private Creep target;
 	private float xVelocity, yVelocity;
 	private boolean alive;
-	private CopyOnWriteArrayList<Enemy> wave;
+	private CopyOnWriteArrayList<Creep> wave;
 	
 	
 	//dotat arraylist wave u konstruktoru, izmenjena klasa tower
-	public Projectile(ProjectileType type, Enemy target, float x, float y, int w, int h, CopyOnWriteArrayList<Enemy> wave) {
+	public Projectile(ProjectileType type, Creep target, float x, float y, int w, int h, CopyOnWriteArrayList<Creep> wave) {
 		texture = type.texture;
 		this.target = target;
 		this.type = type;
@@ -64,7 +64,7 @@ public class Projectile implements Entity {
 			y += Delta() * type.speed * yVelocity;
 			// calcDirection();
 
-			for (Enemy e : wave) {
+			for (Creep e : wave) {
 				if (checkCollision(x, y, width, height, e.getX(), e.getY(), e.getWidth(),
 						e.getHeight())) {
 					e.damage(type.damage);

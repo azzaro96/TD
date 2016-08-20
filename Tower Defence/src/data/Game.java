@@ -11,7 +11,7 @@ import helpers.TextureBank;
 
 public class Game {
 
-	private TileGrid grid;
+	public static TileGrid grid;
 	private Player player;
 	private WaveManager waveManager;
 	private UI gameUI;
@@ -21,11 +21,7 @@ public class Game {
 	public Game(int[][] map) {
 		grid = new TileGrid(map);
 
-		waveManager = new WaveManager(
-				new Enemy(TextureBank.creepRose, grid.getTile(3, 0), grid, TILE_SIZE, TILE_SIZE, 60, 300), 
-				0.5f,
-				20);
-		
+		waveManager = new WaveManager(10);
 
 		player = new Player(grid, waveManager);
 		player.setup();

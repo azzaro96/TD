@@ -3,19 +3,19 @@ package data;
 import static helpers.Clock.*;
 
 public class WaveManager {
-	private float timeSinceLastWave, timeBetweenEnemies, timeBetweenWaves, difficultyFactor;
-	private int waveNumber, enemiesPerWave;
-	private Enemy enemyType;
+	private float timeSinceLastWave, timeBetweenWaves, difficultyFactor, difficulty;
+	private int waveNumber;
+	private CreepType[] creepTypes = {
+		CreepType.basicCreep, CreepType.fastCreep, CreepType.tankyCreep, CreepType.bossCreep	
+	};
 	private Wave currentWave;
 
-	public WaveManager(Enemy enemyType, float timeBetweenEnemies, int enemiesPerWave) {
-		this.enemyType = enemyType;
-		this.timeBetweenEnemies = timeBetweenEnemies;
-		this.enemiesPerWave = enemiesPerWave;
+	public WaveManager(float timeBetweenWaves) {
 		this.timeSinceLastWave = 0;
 		this.waveNumber = 0;
-		this.timeBetweenWaves = 7;
-		this.difficultyFactor = 1.15f;
+		this.timeBetweenWaves = timeBetweenWaves;
+		this.difficultyFactor = 1.3f;
+		this.difficulty = 1;
 		this.currentWave = null;
 
 		newWave();
@@ -34,10 +34,37 @@ public class WaveManager {
 	}
 
 	public void newWave() {
-		enemyType.setHealth(enemyType.getHealth() * difficultyFactor);
-		currentWave = new Wave(enemyType, timeBetweenEnemies, enemiesPerWave);
+		float spawnTime = 0; 
+		int numberOfCreeps = 0;
+		switch (waveNumber %  creepTypes.length) {
+		case 0: // krip
+			spawnTime = 1;
+			numberOfCreeps = 10;
+			break;
+		case 1: // brz krip
+			spawnTime = 0.5f;
+			numberOfCreeps = 10;
+			break;
+		case 2: //tenki krip
+			spawnTime = 0.5f;
+			numberOfCreeps = 10;
+			break;
+		case 3: //boss krip
+			spawnTime = 5;
+			numberOfCreeps = 5;
+			break;
+
+		default:
+			break;
+		}
+		CreepType current = creepTypes[waveNumber % creepTypes.length];
+		current.setMaxHealth(current.getMaxHealth()*difficulty);
+		currentWave = new Wave(current, spawnTime, numberOfCreeps);
 		waveNumber++;
-		System.out.println("Pocinje " + waveNumber + ". talas");
+		if (waveNumber % creepTypes.length == 0){
+			difficulty *= difficultyFactor;
+		}
+		
 	}
 
 	public Wave getCurrentWave() {
