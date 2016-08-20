@@ -31,6 +31,8 @@ public class TextureBank {
 	
 	//In-Game Menu
 	towerPicker = quickLoad("towerPickerBG"),
+	coin = quickLoad("coin"),
+	heart = quickLoad("heart"),
 	
 	//HealthBars
 	healthBarGreen = quickLoad("healthBarGreen"),

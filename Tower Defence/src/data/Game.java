@@ -66,8 +66,8 @@ public class Game {
 		gameUI.getMenu("TowerPicker").addButton(new Button("Green Tower","" + TowerType.greenTower.getCost() , TextureBank.greenTowerFull, 0, 0));
 		
 		gameUI.createMenu("Info", 640, 7*TILE_SIZE, TILE_SIZE, TILE_SIZE, 1, 0);
-		gameUI.getMenu("Info").addButton(new Button("Lives","" + Player.Lives, TextureBank.road, 0, 0));
-		gameUI.getMenu("Info").addButton(new Button("Gold","" + Player.Cash, TextureBank.road, 0, 0));
+		gameUI.getMenu("Info").addButton(new Button("Lives","" + Player.Lives, TextureBank.heart, 0, 0));
+		gameUI.getMenu("Info").addButton(new Button("Gold","" + Player.Cash, TextureBank.coin, 0, 0));
 		gameUI.getMenu("Info").addButton(new Button("Wave","" + player.getWaveManager().getWaveNumber(), TextureBank.road, 0, 0));
 	}
 
