@@ -6,17 +6,19 @@ import helpers.TextureBank;
 
 public enum ProjectileType {
 	
-	greenTowerProjectile(TextureBank.greenProjectile, 45, 300),
-	orangeTowerProjectile(TextureBank.orangeProjectile, 70, 600);
+	greenTowerProjectile(TextureBank.greenProjectile, 45, CSEType.slow, 300),
+	orangeTowerProjectile(TextureBank.orangeProjectile, 70,-1, 600);
 	
 	Texture texture;
-	int dmg;
+	int damage;
+	int statusEffectCode;
 	float speed;
 	
-	private ProjectileType(Texture texture, int dmg, float speed) {
+	private ProjectileType(Texture texture, int dmg,int statusEffectCode, float speed) {
 		this.texture = texture;
-		this.dmg = dmg;
+		this.damage = dmg;
 		this.speed = speed;
+		this.statusEffectCode = statusEffectCode;
 	}
 	
 	

@@ -12,9 +12,10 @@ import org.newdawn.slick.opengl.Texture;
 
 public class Projectile implements Entity {
 
+	private ProjectileType type;
 	private Texture texture;
-	private float x, y, speed;
-	private int damage, width, height;
+	private float x, y;
+	private int width, height;
 	private Enemy target;
 	private float xVelocity, yVelocity;
 	private boolean alive;
@@ -25,12 +26,11 @@ public class Projectile implements Entity {
 	public Projectile(ProjectileType type, Enemy target, float x, float y, int w, int h, CopyOnWriteArrayList<Enemy> wave) {
 		texture = type.texture;
 		this.target = target;
+		this.type = type;
 		this.x = x;
 		this.y = y;
 		width = w;
 		height = h;
-		this.speed = type.speed;
-		damage = type.dmg;
 		this.xVelocity = 0f;
 		this.yVelocity = 0f;
 		calcDirection();
@@ -60,15 +60,20 @@ public class Projectile implements Entity {
 	//ceo wave proverava da li je pogodio metak
 	public void update() {
 		if (alive) {
-			x += Delta() * speed * xVelocity;
-			y += Delta() * speed * yVelocity;
+			x += Delta() * type.speed * xVelocity;
+			y += Delta() * type.speed * yVelocity;
 			// calcDirection();
+
 			for (Enemy e : wave) {
 				if (checkCollision(x, y, width, height, e.getX(), e.getY(), e.getWidth(),
 						e.getHeight())) {
-					e.damage(damage);
+					e.damage(type.damage);
+					if (type.statusEffectCode != -1){
+						target.updateEffectTimer(type.statusEffectCode);
+					}
 					alive = false;
 				}
+
 			}
 			draw();
 		}

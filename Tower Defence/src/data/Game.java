@@ -22,7 +22,6 @@ public class Game {
 		grid = new TileGrid(map);
 
 		waveManager = new WaveManager(
-
 				new Enemy(TextureBank.basicCreep, grid.getTile(3, 0), grid, TILE_SIZE, TILE_SIZE, 60, 300), 
 				0.5f,
 				20);

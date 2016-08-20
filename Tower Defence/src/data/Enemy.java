@@ -6,10 +6,7 @@ import helpers.TextureBank;
 
 import static helpers.Artist.*;
 import static helpers.Clock.*;
-
 import java.util.ArrayList;
-
-
 
 /**
  * @author Dzoni
@@ -21,6 +18,8 @@ public class Enemy implements Entity {
 	// i status treba da se ubaci
 	private float speed, x, y, health, maxHealth;
 	private Texture texture, healthBar;
+	private float[] effectsTimer;
+
 	private Tile startTile;
 	private TileGrid grid;
 	private ArrayList<CheckPoint> checkPoints;
@@ -41,6 +40,10 @@ public class Enemy implements Entity {
 		this.grid = grid;
 		this.maxHealth = hp;
 		this.health = maxHealth;
+		this.effectsTimer = new float[CSEType.numberOfTypes];
+		for (int i = 0; i < CSEType.numberOfTypes; i++) {
+			this.effectsTimer[i] = 0;
+		}
 		this.checkPoints = new ArrayList<CheckPoint>();
 		this.directions = new int[2];
 		// x direction
@@ -111,8 +114,8 @@ public class Enemy implements Entity {
 		drawQuadTex(texture, x, y, width, height);
 
 		// ovo sam eksperimentalno utvrdio da izgleda "dobro"
-		
-		//odredjuje boju healthBar-a
+
+		// odredjuje boju healthBar-a
 		if (healthPercentage > 0.6) {
 			healthBar = TextureBank.healthBarGreen;
 		} else if (healthPercentage > 0.3 && healthPercentage <= 0.6) {
@@ -124,6 +127,7 @@ public class Enemy implements Entity {
 	}
 
 	public void update() {
+
 		
 		// pita da li je prvi put pozvana metoda
 		if (first)
@@ -135,17 +139,37 @@ public class Enemy implements Entity {
 					endReached();
 				} else
 					currentCheckPoint++;
-			} else {
+			}if (effectsTimer[CSEType.stun] > 0) {
+				effectsTimer[CSEType.stun] -= Delta();
+				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (speed * (1 + CSEType.STUN.getStatus().getSpeedModifier()));
+				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (speed * (1 + CSEType.STUN.getStatus().getSpeedModifier()));
+				if (effectsTimer[CSEType.stun] < 0)
+					effectsTimer[CSEType.stun] = 0;
+			}
+			else if (effectsTimer[CSEType.slow] > 0){
+				effectsTimer[CSEType.slow] -= Delta();
+				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (speed * (1 + CSEType.SLOW.getStatus().getSpeedModifier()));
+				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (speed * (1 + CSEType.SLOW.getStatus().getSpeedModifier()));
+				if (effectsTimer[CSEType.slow] < 0)
+					effectsTimer[CSEType.slow] = 0;
+			} 
+			else {
 				// kretanje
+				
 				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * speed;
 				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * speed;
+
 			}
 		}
+
 	}
+
 	/**
 	 * 
-	 * @param trenutni Tile na kome se krip nalazi
-	 * @param smer u kom se trenutno krece
+	 * @param trenutni
+	 *            Tile na kome se krip nalazi
+	 * @param smer
+	 *            u kom se trenutno krece
 	 * @return
 	 */
 	private CheckPoint findNextC(Tile s, int[] dir) {
@@ -175,8 +199,7 @@ public class Enemy implements Entity {
 		c = new CheckPoint(next, dir[0], dir[1]);
 		return c;
 	}
-	
-	
+
 	/**
 	 * Oduzima zivot igracu i krip umire
 	 */
@@ -228,7 +251,8 @@ public class Enemy implements Entity {
 	/**
 	 * 
 	 * @param dmg
-	 * prima damage, ako umre daje igracu pare
+	 *            <<<<<<< HEAD prima damage, ako umre daje igracu pare =======
+	 *            prima damage >>>>>>> refs/heads/CreepStatusEffect
 	 */
 	public void damage(int dmg) {
 		health -= dmg;
@@ -320,6 +344,12 @@ public class Enemy implements Entity {
 
 	public boolean isAlive() {
 		return alive;
+	}
+
+	public void updateEffectTimer(int effectCode) {
+		if (effectCode != -1) {
+			effectsTimer[effectCode] = CSEType.EFFECTS[effectCode].getStatus().getDuration();
+		}
 	}
 
 }
