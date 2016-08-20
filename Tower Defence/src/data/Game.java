@@ -22,7 +22,7 @@ public class Game {
 		grid = new TileGrid(map);
 
 		waveManager = new WaveManager(
-				new Enemy(TextureBank.basicCreep, grid.getTile(3, 0), grid, TILE_SIZE, TILE_SIZE, 60, 300), 
+				new Enemy(TextureBank.creepRose, grid.getTile(3, 0), grid, TILE_SIZE, TILE_SIZE, 60, 300), 
 				0.5f,
 				20);
 		
@@ -51,7 +51,11 @@ public class Game {
 							waveManager.getCurrentWave().getEnemyList()));
 				}
 				if (gameUI.getMenu("TowerPicker").isButtonClicked("Green Tower")) {
-					player.pickTower(new GreenTower(TowerType.greenTower, grid.getTile(2, 0),
+					player.pickTower(new GreenTower(TowerType.greenTower, grid.getTile(0, 0),
+							waveManager.getCurrentWave().getEnemyList()));
+				}
+				if (gameUI.getMenu("TowerPicker").isButtonClicked("Purple Tower")) {
+					player.pickTower(new PurpleTower(TowerType.purpleTower, grid.getTile(2, 0),
 							waveManager.getCurrentWave().getEnemyList()));
 				}
 			}
@@ -64,6 +68,7 @@ public class Game {
 		gameUI.createMenu("TowerPicker", 640, TILE_SIZE, TILE_SIZE, HEIGHT, 1,  0);
 		gameUI.getMenu("TowerPicker").addButton(new Button("Orange Tower","" + TowerType.orangeTower.getCost(), TextureBank.orangeTowerFull, 0, 0));
 		gameUI.getMenu("TowerPicker").addButton(new Button("Green Tower","" + TowerType.greenTower.getCost() , TextureBank.greenTowerFull, 0, 0));
+		gameUI.getMenu("TowerPicker").addButton(new Button("Purple Tower","" + TowerType.purpleTower.getCost() , TextureBank.purpleTowerFull, 0, 0));
 		
 		gameUI.createMenu("Info", 640, 7*TILE_SIZE, TILE_SIZE, TILE_SIZE, 1, 0);
 		gameUI.getMenu("Info").addButton(new Button("Lives","" + Player.Lives, TextureBank.heart, 0, 0));

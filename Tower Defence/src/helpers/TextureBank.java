@@ -12,14 +12,20 @@ public class TextureBank {
 	orangeTowerCannon = quickLoad("TowerGun"),
 	greenTowerFull = quickLoad("greenTowerFull"),
 	orangeTowerFull = quickLoad("orangeTowerFull"),
-	
+	purpleTowerBase = quickLoad("purpleTowerBase"),
+	purpleTowerCannon = quickLoad("purpleTowerCannon"),
+	purpleTowerFull = quickLoad("purpleTowerFull"),
 	
 	//Projektili
-	greenProjectile = quickLoad("bullet"),
+	greenProjectile = quickLoad("greenBullet"),
 	orangeProjectile = quickLoad("bullet"),
+	purpleProjectile = quickLoad("purpleBullet"),
 	
 	//Kripovi
-	basicCreep = quickLoad("creep"),
+	creepRose = quickLoad("creep"),
+	creepBlue = quickLoad("creepBlue"),
+	creepBoss = quickLoad("creepBoss"),
+	creepPurple = quickLoad("creepPurple"),
 	
 	//Mapa
 	land = quickLoad("land"),
