@@ -34,9 +34,11 @@ public class Game {
 
 	private void updateUI() {
 		gameUI.draw();
-		gameUI.drawString(650 , 150, "Lives: " + Player.Lives);
-		gameUI.drawString(650 , 180, "Cash: " + Player.Cash);
-		gameUI.drawString(650, 210, "Wave " + waveManager.getWaveNumber());
+		gameUI.getMenu("Info").getMenuButton("Lives").setCaption(""+Player.Lives);
+		gameUI.getMenu("Info").getMenuButton("Gold").setCaption(""+Player.Cash);
+		gameUI.getMenu("Info").getMenuButton("Wave").setCaption(""+player.getWaveManager().getWaveNumber());
+		//gameUI.drawString(650 , 180, "Cash: " + Player.Cash);
+		//gameUI.drawString(650, 210, "Wave " + waveManager.getWaveNumber());
 		if(player.getWaveManager().getCurrentWave().getEnemyList().size() == 0){
 			int nextWaveIn = (int) (player.getWaveManager().getTimeBetweenWaves() - player.getWaveManager().getTimeSinceLastWave());
 			gameUI.drawString(650, 240, "Next wave in " + nextWaveIn);
@@ -59,18 +61,18 @@ public class Game {
 	private void setupUI() {
 		gameUI = new UI();
 		
-		gameUI.createMenu("TowerPicker", 640, 2*TILE_SIZE, 5*TILE_SIZE, HEIGHT, 2,  0);
+		gameUI.createMenu("TowerPicker", 640, TILE_SIZE, TILE_SIZE, HEIGHT, 1,  0);
 		gameUI.getMenu("TowerPicker").addButton(new Button("Orange Tower","" + TowerType.orangeTower.getCost(), TextureBank.orangeTowerFull, 0, 0));
-		gameUI.getMenu("TowerPicker").addButton(new Button("Green Tower","" + TowerType.orangeTower.getCost() , TextureBank.greenTowerFull, 0, 0));
+		gameUI.getMenu("TowerPicker").addButton(new Button("Green Tower","" + TowerType.greenTower.getCost() , TextureBank.greenTowerFull, 0, 0));
 		
-		gameUI.createMenu("SpeedControl", 640, 270, 2*TILE_SIZE, 3*TILE_SIZE, 3, 0);
-		//gameUI.getMenu("SpeedControl").addButton(new Button("Normal", TextureBank.land, 0, 0));
-		//gameUI.getMenu("SpeedControl").addButton(new Button("Medium", TextureBank.land, 0, 0));
-		//gameUI.getMenu("SpeedControl").addButton(new Button("Fast", TextureBank.land, 0, 0));
+		gameUI.createMenu("Info", 640, 7*TILE_SIZE, TILE_SIZE, TILE_SIZE, 1, 0);
+		gameUI.getMenu("Info").addButton(new Button("Lives","" + Player.Lives, TextureBank.road, 0, 0));
+		gameUI.getMenu("Info").addButton(new Button("Gold","" + Player.Cash, TextureBank.road, 0, 0));
+		gameUI.getMenu("Info").addButton(new Button("Wave","" + player.getWaveManager().getWaveNumber(), TextureBank.road, 0, 0));
 	}
 
 	public void update() {
-		drawQuadTex(TextureBank.towerPicker,WIDTH - 5 * TILE_SIZE , 0, 5 * TILE_SIZE, HEIGHT);
+		drawQuadTex(TextureBank.towerPicker, 640, 0, TILE_SIZE, HEIGHT + 32);
 		grid.draw();
 		waveManager.update();
 		player.Update();

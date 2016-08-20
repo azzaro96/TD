@@ -110,6 +110,16 @@ public class Button {
 	public void setHeight(int height) {
 		this.height = height;
 	}
+
+	public String getCaption() {
+		return caption;
+	}
+
+	public void setCaption(String caption) {
+		this.caption = caption;
+	}
+	
+	
 	
 	
 	

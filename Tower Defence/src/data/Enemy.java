@@ -164,10 +164,8 @@ public class Enemy implements Entity {
 
 	/**
 	 * 
-	 * @param trenutni
-	 *            Tile na kome se krip nalazi
-	 * @param smer
-	 *            u kom se trenutno krece
+	 * @param s Trenutni Tile na kome se krip nalazi
+	 * @param dir jedinicni vektor smera u kom se trenutno krece
 	 * @return
 	 */
 	private CheckPoint findNextC(Tile s, int[] dir) {
@@ -208,8 +206,7 @@ public class Enemy implements Entity {
 
 	/**
 	 * 
-	 * @param Tile
-	 *            na kome se krip trenutno nalazi
+	 * @param Tile na kome se krip trenutno nalazi
 	 * @return dvodimenzionalni vektor smera
 	 */
 	private int[] findNextD(Tile s) {

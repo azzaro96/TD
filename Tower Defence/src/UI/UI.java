@@ -119,13 +119,12 @@ public class UI {
 			if (columns != 0) {
 				b.setY(y + (buttonAmount / columns) * TILE_SIZE);
 			}
-			b.setX(x + (buttonAmount % 2) *(padding + TILE_SIZE) + padding);
+			b.setX(x + (buttonAmount % columns) *(padding + TILE_SIZE) + padding);
 			buttonAmount++;
 			menuButtons.add(b);
 		}
 
 		public void draw() {
-			int i =0;
 			for (Button b : menuButtons) {
 				b.draw();
 			}
@@ -135,5 +134,17 @@ public class UI {
 			return name;
 		}
 
+		public Button getMenuButton(String name) {
+			for (Button button : menuButtons) {
+				if(button.getName().equals(name)){
+					return button;
+				}
+			}
+			return null;
+		}
+		
+		
+		
+		
 	}
 }
