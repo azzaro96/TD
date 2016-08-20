@@ -26,6 +26,9 @@ public class TextureBank {
 	splashScreen = quickLoad("splash"),
 	playButton = quickLoad("play"),
 	
+	//In-Game Menu
+	towerPicker = quickLoad("towerPickerBG"),
+	
 	//HealthBars
 	healthBarGreen = quickLoad("healthBarGreen"),
 	healthBarYellow = quickLoad("healthBarYellow"),

@@ -6,8 +6,8 @@ import helpers.TextureBank;
 
 public enum ProjectileType {
 	
-	greenTowerProjectile(TextureBank.greenProjectile, 15, 300),
-	orangeTowerProjectile(TextureBank.orangeProjectile, 30, 600);
+	greenTowerProjectile(TextureBank.greenProjectile, 45, 300),
+	orangeTowerProjectile(TextureBank.orangeProjectile, 70, 600);
 	
 	Texture texture;
 	int dmg;

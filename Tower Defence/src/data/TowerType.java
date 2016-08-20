@@ -6,8 +6,8 @@ import helpers.TextureBank;
 
 public enum TowerType {
 	
-	greenTower(TextureBank.greenTowerBase, TextureBank.greenTowerCannon, ProjectileType.greenTowerProjectile, 30, 70, 5, 1),
-	orangeTower(TextureBank.orangeTowerBase, TextureBank.orangeTowerCannon,ProjectileType.orangeTowerProjectile, 50, 120, 25, 1);
+	greenTower(TextureBank.greenTowerBase, TextureBank.greenTowerCannon, ProjectileType.greenTowerProjectile, 50, 70, 5, 1),
+	orangeTower(TextureBank.orangeTowerBase, TextureBank.orangeTowerCannon,ProjectileType.orangeTowerProjectile, 100, 120, 25, 1);
 	
 	Texture towerBase;
 	Texture towerCannon;
@@ -24,4 +24,36 @@ public enum TowerType {
 		this.attackSpeed = as;
 		this.cost = cost;
 	}
+
+	public Texture getTowerBase() {
+		return towerBase;
+	}
+
+	public Texture getTowerCannon() {
+		return towerCannon;
+	}
+
+	public ProjectileType getProjectileType() {
+		return projectileType;
+	}
+
+	public int getDmg() {
+		return dmg;
+	}
+
+	public int getRange() {
+		return range;
+	}
+
+	public int getCost() {
+		return cost;
+	}
+
+	public float getAttackSpeed() {
+		return attackSpeed;
+	}
+	
+	
+	
+	
 }

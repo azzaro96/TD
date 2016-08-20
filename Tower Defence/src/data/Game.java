@@ -2,6 +2,8 @@ package data;
 
 import static helpers.Artist.*;
 
+import UI.Button;
+
 import org.lwjgl.input.Mouse;
 
 import UI.UI;
@@ -33,14 +35,17 @@ public class Game {
 
 	private void updateUI() {
 		towerPickerUI.draw();
+		towerPickerUI.drawString(660 , 150, "Lives: " + Player.Lives);
+		towerPickerUI.drawString(660 , 180, "Cash: " + Player.Cash);
+		towerPickerUI.drawString(660, 210, "Wave " + waveManager.getWaveNumber());
 		if (Mouse.next()) {
 			boolean mouseClicked = Mouse.isButtonDown(0);
 			if (mouseClicked) {
-				if (towerPickerUI.isButtonClicked("Orange Tower")) {
+				if (towerPickerUI.getMenu("TowerPicker").isButtonClicked("Orange Tower")) {
 					player.pickTower(new OrangeTower(TowerType.orangeTower, grid.getTile(0, 0),
 							waveManager.getCurrentWave().getEnemyList()));
 				}
-				if (towerPickerUI.isButtonClicked("Green Tower")) {
+				if (towerPickerUI.getMenu("TowerPicker").isButtonClicked("Green Tower")) {
 					player.pickTower(new GreenTower(TowerType.greenTower, grid.getTile(2, 0),
 							waveManager.getCurrentWave().getEnemyList()));
 				}
@@ -50,11 +55,15 @@ public class Game {
 
 	private void setupUI() {
 		towerPickerUI = new UI();
-		towerPickerUI.addButton("Orange Tower", TextureBank.orangeTowerBase, 0, 0);
-		towerPickerUI.addButton("Green Tower", TextureBank.greenTowerBase, TILE_SIZE, 0);
+		//towerPickerUI.addButton("Orange Tower", TextureBank.orangeTowerBase, 0, 0);
+		//towerPickerUI.addButton("Green Tower", TextureBank.greenTowerBase, TILE_SIZE, 0);
+		towerPickerUI.createMenu("TowerPicker", 640, 2*TILE_SIZE, 3*TILE_SIZE, HEIGHT, 2,  0);
+		towerPickerUI.getMenu("TowerPicker").addButton(new Button("Orange Tower", TextureBank.orangeTowerBase, 0, 0));
+		towerPickerUI.getMenu("TowerPicker").addButton(new Button("Green Tower", TextureBank.greenTowerBase, 0, 0));
 	}
 
 	public void update() {
+		drawQuadTex(TextureBank.towerPicker,WIDTH - 3 * TILE_SIZE , 0, 3 * TILE_SIZE, HEIGHT);
 		grid.draw();
 		waveManager.update();
 		player.Update();

@@ -12,8 +12,8 @@ import org.newdawn.slick.opengl.Texture;
 
 public abstract class Tower implements Entity {
 
-	private float x, y, timeSinceLastShot, firingSpeed, angle;
-	private int width, height, range, towerCost;
+	private float x, y, timeSinceLastShot, angle;
+	private int width, height;
 	private Enemy target;
 	private Texture baseTexture, cannonTexture;
 	private CopyOnWriteArrayList<Enemy> enemies;
@@ -25,8 +25,6 @@ public abstract class Tower implements Entity {
 		baseTexture = type.towerBase;
 		cannonTexture = type.towerCannon;
 		this.type = type;
-		this.range = type.range;
-		this.firingSpeed = type.attackSpeed;
 		this.angle = 0f;
 		this.x = startTile.getX();
 		this.y = startTile.getY();
@@ -67,7 +65,7 @@ public abstract class Tower implements Entity {
 	private boolean isInRange(Enemy e) {
 		float xDistance = Math.abs(e.getX() - x);
 		float yDistance = Math.abs(e.getY() - y);
-		if (xDistance <= range && yDistance <= range)
+		if (xDistance <= type.getRange() && yDistance <= type.getRange())
 			return true;
 		return false;
 	}
@@ -88,7 +86,7 @@ public abstract class Tower implements Entity {
 			target = acquireTarget();
 		} else {
 			angle = calcAngle() - 50;
-			if (timeSinceLastShot > firingSpeed) {
+			if (timeSinceLastShot > type.getAttackSpeed()) {
 				shoot(target);
 				timeSinceLastShot = 0;
 			}

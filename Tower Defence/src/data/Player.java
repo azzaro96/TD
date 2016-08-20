@@ -89,11 +89,14 @@ public class Player {
 	}
 
 	private void placeTower() {
+		Tile currentTile = getMouseTile();
 		if (holdingTower)
-			if (modifyCash(-20))
+			if (!currentTile.isOccupied() && modifyCash(-tempTower.type.getCost())){
 				towerList.add(tempTower);
-		holdingTower = false;
-		tempTower = null;
+				holdingTower = false;
+				currentTile.setOccupied(true);
+				tempTower = null;
+			}	
 
 	}
 

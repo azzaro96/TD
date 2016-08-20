@@ -9,13 +9,19 @@ public class Tile {
 	private int width, height;
 	private Texture texture;
 	private TileType type;
+	private boolean occupied;
 	
 	public Tile(float x, float y, int w, int h, TileType t) {
+		this.occupied = false;
 		this.x = x;
 		this.y = y;
 		width = w;
 		height = h;
 		type = t;
+		if(type.buildable)
+			occupied = false;
+		else
+			occupied = true;
 		if (type == TileType.Land)
 			texture = land;
 		else
@@ -82,6 +88,17 @@ public class Tile {
 	public void setType(TileType type) {
 		this.type = type;
 	}
+
+
+	public boolean isOccupied() {
+		return occupied;
+	}
+
+
+	public void setOccupied(boolean occupied) {
+		this.occupied = occupied;
+	}
+	
 	
 	
 }
