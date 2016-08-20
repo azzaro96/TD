@@ -55,11 +55,13 @@ public class Game {
 
 	private void setupUI() {
 		towerPickerUI = new UI();
+
 		//towerPickerUI.addButton("Orange Tower", TextureBank.orangeTowerBase, 0, 0);
 		//towerPickerUI.addButton("Green Tower", TextureBank.greenTowerBase, TILE_SIZE, 0);
 		towerPickerUI.createMenu("TowerPicker", 640, 2*TILE_SIZE, 3*TILE_SIZE, HEIGHT, 2,  0);
-		towerPickerUI.getMenu("TowerPicker").addButton(new Button("Orange Tower", TextureBank.orangeTowerBase, 0, 0));
-		towerPickerUI.getMenu("TowerPicker").addButton(new Button("Green Tower", TextureBank.greenTowerBase, 0, 0));
+		towerPickerUI.getMenu("TowerPicker").addButton(new Button("Orange Tower", TextureBank.orangeTowerFull, 0, 0));
+		towerPickerUI.getMenu("TowerPicker").addButton(new Button("Green Tower", TextureBank.greenTowerFull, 0, 0));
+
 	}
 
 	public void update() {
