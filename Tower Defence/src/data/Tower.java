@@ -1,6 +1,5 @@
 package data;
 
-
 import static helpers.Artist.drawQuadTex;
 import static helpers.Artist.drawQuadTexRot;
 import static helpers.Clock.Delta;
@@ -74,7 +73,7 @@ public abstract class Tower implements Entity {
 		double angleTemp = Math.atan2(target.getY() - y, target.getX() - x);
 		return (float) Math.toDegrees(angleTemp) - 90;
 	}
-	
+
 	public abstract void shoot(Enemy target);
 
 	public void updateEnemyList(CopyOnWriteArrayList<Enemy> enemyList) {
@@ -85,11 +84,14 @@ public abstract class Tower implements Entity {
 		if (!targeted) {
 			target = acquireTarget();
 		} else {
-			angle = calcAngle() - 50;
-			if (timeSinceLastShot > type.getAttackSpeed()) {
-				shoot(target);
-				timeSinceLastShot = 0;
+			if (isInRange(target)) {
+				angle = calcAngle() - 50;
+				if (timeSinceLastShot > type.getAttackSpeed()) {
+					shoot(target);
+					timeSinceLastShot = 0;
+				}
 			}
+			else targeted = false;
 		}
 
 		if (target == null || target.isAlive() == false)
@@ -105,11 +107,13 @@ public abstract class Tower implements Entity {
 			draw();
 		}
 	}
-	//skracena verzija stvaranja projektila
-	public void spawnProjectile(ProjectileType type){
-		projectiles.add(new Projectile(type, target, x + type.texture.getImageWidth() / 2, y + type.texture.getImageHeight() /2, width, height, enemies));
+
+	// skracena verzija stvaranja projektila
+	public void spawnProjectile(ProjectileType type) {
+		projectiles.add(new Projectile(type, target, x + type.texture.getImageWidth() / 2,
+				y + type.texture.getImageHeight() / 2, width, height, enemies));
 	}
-	
+
 	public void draw() {
 		drawQuadTex(baseTexture, x, y, width, height);
 		drawQuadTexRot(cannonTexture, x, y, width, height, angle);
