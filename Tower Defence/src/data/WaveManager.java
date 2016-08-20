@@ -25,7 +25,6 @@ public class WaveManager {
 			currentWave.update();
 		} else {
 			timeSinceLastWave += Delta();
-			
 			if (timeBetweenWaves <= timeSinceLastWave) {
 				newWave();
 				timeSinceLastWave = 0;
@@ -46,5 +45,17 @@ public class WaveManager {
 	public int getWaveNumber() {
 		return waveNumber;
 	}
+
+	public float getTimeSinceLastWave() {
+		return timeSinceLastWave;
+	}
+
+	public float getTimeBetweenWaves() {
+		return timeBetweenWaves;
+	}
+	
+	
+	
+	
 
 }

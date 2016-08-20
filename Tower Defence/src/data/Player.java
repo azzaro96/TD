@@ -108,4 +108,10 @@ public class Player {
 	private Tile getMouseTile() {
 		return grid.getTile((int) Mouse.getX() / TILE_SIZE, (int) (HEIGHT - Mouse.getY() - 1) / TILE_SIZE);
 	}
+
+	public WaveManager getWaveManager() {
+		return waveManager;
+	}
+	
+	
 }

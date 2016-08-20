@@ -2,11 +2,12 @@ package helpers;
 
 import data.Game;
 import data.MainMenu;
+import data.Player;
 
 public class StateManager {
 	
 	public static enum GameState {
-		MAINMENU, GAME
+		MAINMENU, GAME, GAMEOVER
 	}
 	
 	static int map[][] = {
@@ -42,8 +43,14 @@ public class StateManager {
 			if (game == null)
 				game = new Game(map);
 			game.update();
+			if(Player.Lives <= 0){
+				game = null;
+				gameState = GameState.MAINMENU;
+			}
 			break;
-
+		case GAMEOVER:
+			
+			break;
 		default:
 			break;
 		}
