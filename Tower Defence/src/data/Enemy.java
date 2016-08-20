@@ -15,11 +15,9 @@ import java.util.ArrayList;
 public class Enemy implements Entity {
 
 	private int width, height, currentCheckPoint;
-	// i status treba da se ubaci
 	private float speed, x, y, health, maxHealth;
 	private Texture texture, healthBar;
 	private float[] effectsTimer;
-
 	private Tile startTile;
 	private TileGrid grid;
 	private ArrayList<CheckPoint> checkPoints;
@@ -141,15 +139,15 @@ public class Enemy implements Entity {
 					currentCheckPoint++;
 			}if (effectsTimer[CSEType.stun] > 0) {
 				effectsTimer[CSEType.stun] -= Delta();
-				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (speed * (1 + CSEType.STUN.getStatus().getSpeedModifier()));
-				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (speed * (1 + CSEType.STUN.getStatus().getSpeedModifier()));
+				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (speed * (1 + CSEType.STUN.getSpeedModifier()));
+				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (speed * (1 + CSEType.STUN.getSpeedModifier()));
 				if (effectsTimer[CSEType.stun] < 0)
 					effectsTimer[CSEType.stun] = 0;
 			}
 			else if (effectsTimer[CSEType.slow] > 0){
 				effectsTimer[CSEType.slow] -= Delta();
-				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (speed * (1 + CSEType.SLOW.getStatus().getSpeedModifier()));
-				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (speed * (1 + CSEType.SLOW.getStatus().getSpeedModifier()));
+				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (speed * (1 + CSEType.SLOW.getSpeedModifier()));
+				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (speed * (1 + CSEType.SLOW.getSpeedModifier()));
 				if (effectsTimer[CSEType.slow] < 0)
 					effectsTimer[CSEType.slow] = 0;
 			} 
@@ -228,16 +226,16 @@ public class Enemy implements Entity {
 		Tile d = grid.getTile(s.getXPlace(), s.getYPlace() + 1);
 		Tile l = grid.getTile(s.getXPlace() - 1, s.getYPlace());
 
-		if (s.getType() == u.getType() && directions[1] != 1) {
+		if (u != null && s.getType() == u.getType() && directions[1] != 1) {
 			dir[0] = 0;
 			dir[1] = -1;
-		} else if (s.getType() == r.getType() && directions[0] != -1) {
+		} else if (r != null && s.getType() == r.getType() && directions[0] != -1) {
 			dir[0] = 1;
 			dir[1] = 0;
-		} else if (s.getType() == l.getType() && directions[0] != 1) {
+		} else if (l != null && s.getType() == l.getType() && directions[0] != 1) {
 			dir[0] = -1;
 			dir[1] = 0;
-		} else if (s.getType() == d.getType() && directions[1] != -1) {
+		} else if (d != null && s.getType() == d.getType() && directions[1] != -1) {
 			dir[0] = 0;
 			dir[1] = 1;
 		} else { // ako ne moze da nadje sledeci smer
@@ -251,8 +249,7 @@ public class Enemy implements Entity {
 	/**
 	 * 
 	 * @param dmg
-	 *            <<<<<<< HEAD prima damage, ako umre daje igracu pare =======
-	 *            prima damage >>>>>>> refs/heads/CreepStatusEffect
+	 * prima damage, ako umre daje igracu pare 
 	 */
 	public void damage(int dmg) {
 		health -= dmg;
@@ -348,7 +345,7 @@ public class Enemy implements Entity {
 
 	public void updateEffectTimer(int effectCode) {
 		if (effectCode != -1) {
-			effectsTimer[effectCode] = CSEType.EFFECTS[effectCode].getStatus().getDuration();
+			effectsTimer[effectCode] = CSEType.EFFECTS[effectCode].getDuration();
 		}
 	}
 

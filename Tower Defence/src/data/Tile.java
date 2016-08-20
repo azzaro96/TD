@@ -1,6 +1,7 @@
 package data;
 
 import org.newdawn.slick.opengl.Texture;
+
 import static helpers.Artist.*;
 
 public class Tile {

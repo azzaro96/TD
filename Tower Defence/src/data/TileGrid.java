@@ -40,7 +40,7 @@ public class TileGrid {
 	public Tile getTile(int x, int y){
 		if(x < tilesWide && x > -1 && y < tilesHigh && y > -1)
 		return map[x][y];
-		else return new Tile (0,0,0,0 ,TileType.NULL);
+		else return new Tile(4000, 4000, 1, 1, TileType.NULL);
 	}
 	
 	public void SetTile(int x, int y, TileType type){

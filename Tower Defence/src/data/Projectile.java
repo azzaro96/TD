@@ -69,7 +69,7 @@ public class Projectile implements Entity {
 						e.getHeight())) {
 					e.damage(type.damage);
 					if (type.statusEffectCode != -1){
-						target.updateEffectTimer(type.statusEffectCode);
+						e.updateEffectTimer(type.statusEffectCode);
 					}
 					alive = false;
 				}
