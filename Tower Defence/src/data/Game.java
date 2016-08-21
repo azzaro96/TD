@@ -36,8 +36,11 @@ public class Game {
 		gameUI.getMenu("Info").getMenuButton("Lives").setCaption(""+Player.Lives);
 		//gameUI.drawString(650 , 180, "Cash: " + Player.Cash);
 		//gameUI.drawString(650, 210, "Wave " + waveManager.getWaveNumber());
-		if(player.getWaveManager().getCurrentWave().getEnemyList().size() == 0){
-			int nextWaveIn = (int) (player.getWaveManager().getTimeBetweenWaves() - player.getWaveManager().getTimeSinceLastWave());
+		//NE SME OVO
+		//if(player.getWaveManager().getCurrentWave().getEnemyList().size() == 0){
+		
+		if(player.getWaveManager().getCurrentWave().isCompleted()){
+		int nextWaveIn = (int) (player.getWaveManager().getTimeBetweenWaves() - player.getWaveManager().getTimeSinceLastWave());
 			gameUI.drawString(650, 240,"" + nextWaveIn);
 		}
 		if (Mouse.next()) {
@@ -54,6 +57,9 @@ public class Game {
 				if (gameUI.getMenu("TowerPicker").isButtonClicked("Purple Tower")) {
 					player.pickTower(new PurpleTower(TowerType.purpleTower, grid.getTile(2, 0),
 							waveManager.getCurrentWave().getEnemyList()));
+				}
+				if (gameUI.getMenu("Info").isButtonClicked("Wave") && player.getWaveManager().getCurrentWave().isCompleted()) {
+					player.getWaveManager().spawnNextWave();
 				}
 			}
 		}

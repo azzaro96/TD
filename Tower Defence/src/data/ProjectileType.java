@@ -6,9 +6,9 @@ import helpers.TextureBank;
 
 public enum ProjectileType {
 	
-	greenTowerProjectile(TextureBank.greenProjectile, 10, CSEType.slow, 300),
-	orangeTowerProjectile(TextureBank.orangeProjectile, 20, -1, 600),
-	purpleTowerProjectile(TextureBank.purpleProjectile, 100, -1, 450);
+	greenTowerProjectileLVL1(TextureBank.greenProjectile, 10, CSEType.slow, 250),
+	orangeTowerProjectileLVL1(TextureBank.orangeProjectile, 20, -1, 400),
+	purpleTowerProjectileLVL1(TextureBank.purpleProjectile, 100, -1, 180);
 	
 	Texture texture;
 	int damage;

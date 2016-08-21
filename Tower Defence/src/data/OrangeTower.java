@@ -10,6 +10,6 @@ public class OrangeTower extends Tower{
 
 	@Override
 	public void shoot(Creep target) {
-		super.spawnProjectile(ProjectileType.orangeTowerProjectile);
+		super.spawnProjectile(ProjectileType.orangeTowerProjectileLVL1);
 	}
 }

@@ -6,9 +6,9 @@ import helpers.TextureBank;
 
 public enum TowerType {
 	
-	greenTower(TextureBank.greenTowerBase, TextureBank.greenTowerCannon, ProjectileType.greenTowerProjectile, 100, 5, 1),
-	orangeTower(TextureBank.orangeTowerBase, TextureBank.orangeTowerCannon,ProjectileType.orangeTowerProjectile, 100, 5, 1),
-	purpleTower(TextureBank.purpleTowerBase, TextureBank.purpleTowerCannon, ProjectileType.purpleTowerProjectile, 200, 5, 1.5f);
+	greenTower(TextureBank.greenTowerBase, TextureBank.greenTowerCannon, ProjectileType.greenTowerProjectileLVL1, 100, 5, 1.2f),
+	orangeTower(TextureBank.orangeTowerBase, TextureBank.orangeTowerCannon,ProjectileType.orangeTowerProjectileLVL1, 100, 5, 1),
+	purpleTower(TextureBank.purpleTowerBase, TextureBank.purpleTowerCannon, ProjectileType.purpleTowerProjectileLVL1, 200, 25, 2);
 	
 	Texture towerBase;
 	Texture towerCannon;

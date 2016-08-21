@@ -9,8 +9,8 @@ public enum CreepType {
 	
 	
 	basicCreep(TextureBank.creepRose, 100, 50, 1, false),
-	fastCreep(TextureBank.creepBlue, 100, 100, 1, false),
-	tankyCreep(TextureBank.creepPurple, 400, 25, 1, false),
+	fastCreep(TextureBank.creepBlue, 100, 120, 1, false),
+	tankyCreep(TextureBank.creepPurple, 400, 30, 1, false),
 	bossCreep(TextureBank.creepBoss, 1000, 50, 10, true);
 	
 	private Texture texture;

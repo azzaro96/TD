@@ -146,8 +146,8 @@ public class Creep implements Entity {
 			}
 			else if (effectsTimer[CSEType.slow] > 0){
 				effectsTimer[CSEType.slow] -= Delta();
-				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (creepType.getSpeed() * (1 + CSEType.SLOW.getSpeedModifier()));
-				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (creepType.getSpeed() * (1 + CSEType.SLOW.getSpeedModifier()));
+				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (creepType.getSpeed() * (1 + CSEType.SLOWLVL1.getSpeedModifier()));
+				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (creepType.getSpeed() * (1 + CSEType.SLOWLVL1.getSpeedModifier()));
 				if (effectsTimer[CSEType.slow] < 0)
 					effectsTimer[CSEType.slow] = 0;
 			} 

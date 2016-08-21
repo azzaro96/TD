@@ -16,6 +16,6 @@ public class GreenTower extends Tower {
 	 * samo skracena verzija
 	 */
 	public void shoot(Creep target) {
-		super.spawnProjectile(ProjectileType.greenTowerProjectile);
+		super.spawnProjectile(ProjectileType.greenTowerProjectileLVL1);
 	}
 }

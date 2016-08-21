@@ -4,7 +4,7 @@ import static helpers.Clock.*;
 
 public class WaveManager {
 	private float timeSinceLastWave, timeBetweenWaves, difficultyFactor, difficulty;
-	private int waveNumber;
+	private int waveNumber, bountyIncrease;
 	private CreepType[] creepTypes = {
 		CreepType.basicCreep, CreepType.fastCreep, CreepType.tankyCreep, CreepType.bossCreep	
 	};
@@ -16,6 +16,7 @@ public class WaveManager {
 		this.timeBetweenWaves = timeBetweenWaves;
 		this.difficultyFactor = 1.3f;
 		this.difficulty = 1;
+		this.bountyIncrease = 0;
 		this.currentWave = null;
 
 		newWave();
@@ -42,7 +43,7 @@ public class WaveManager {
 			numberOfCreeps = 10;
 			break;
 		case 1: // brz krip
-			spawnTime = 0.5f;
+			spawnTime = 1.5f;
 			numberOfCreeps = 10;
 			break;
 		case 2: //tenki krip
@@ -50,8 +51,8 @@ public class WaveManager {
 			numberOfCreeps = 10;
 			break;
 		case 3: //boss krip
-			spawnTime = 5;
-			numberOfCreeps = 5;
+			spawnTime = 6;
+			numberOfCreeps = 3;
 			break;
 
 		default:
@@ -59,10 +60,14 @@ public class WaveManager {
 		}
 		CreepType current = creepTypes[waveNumber % creepTypes.length];
 		current.setMaxHealth(current.getMaxHealth()*difficulty);
+		current.setBounty(current.getBounty() + bountyIncrease);
 		currentWave = new Wave(current, spawnTime, numberOfCreeps);
 		waveNumber++;
 		if (waveNumber % creepTypes.length == 0){
 			difficulty *= difficultyFactor;
+		}
+		if (waveNumber % (creepTypes.length*2) == 0){
+			bountyIncrease++;
 		}
 		
 	}
@@ -83,7 +88,9 @@ public class WaveManager {
 		return timeBetweenWaves;
 	}
 	
-	
+	public void spawnNextWave(){
+		timeSinceLastWave = timeBetweenWaves;
+	}
 	
 	
 
