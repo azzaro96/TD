@@ -9,7 +9,7 @@ public enum CreepType {
 	
 	
 	basicCreep(TextureBank.creepRose, 100, 50, 1, false),
-	fastCreep(TextureBank.creepBlue, 100, 120, 1, false),
+	fastCreep(TextureBank.creepBlue, 60, 140, 1, false),
 	tankyCreep(TextureBank.creepPurple, 400, 30, 1, false),
 	bossCreep(TextureBank.creepBoss, 1000, 50, 10, true);
 	
@@ -27,6 +27,7 @@ public enum CreepType {
 		this.boss = boss;
 		this.bounty = bounty;
 	}
+	
 
 	public Texture getTexture() {
 		return texture;
@@ -68,7 +69,12 @@ public enum CreepType {
 		this.bounty = bounty;
 	}
 	
-	
+	public void increaseBounty(){
+		if(this == bossCreep)
+			bounty += 10;
+		else
+			bounty++;
+	}
 	
 	
 	

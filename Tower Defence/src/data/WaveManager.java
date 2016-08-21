@@ -58,18 +58,16 @@ public class WaveManager {
 		default:
 			break;
 		}
-		CreepType current = creepTypes[waveNumber % creepTypes.length];
+		CreepType current = creepTypes[waveNumber % creepTypes.length]; 
 		current.setMaxHealth(current.getMaxHealth()*difficulty);
-		current.setBounty(current.getBounty() + bountyIncrease);
 		currentWave = new Wave(current, spawnTime, numberOfCreeps);
 		waveNumber++;
 		if (waveNumber % creepTypes.length == 0){
 			difficulty *= difficultyFactor;
+			for (CreepType creepType : creepTypes) {
+				creepType.increaseBounty();
+			}
 		}
-		if (waveNumber % (creepTypes.length*2) == 0){
-			bountyIncrease++;
-		}
-		
 	}
 
 	public Wave getCurrentWave() {
