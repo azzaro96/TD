@@ -9,7 +9,6 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 
-import data.TowerType;
 
 public class UI {
 	private ArrayList<Button> buttonList;
@@ -74,7 +73,6 @@ public class UI {
 
 	public class Menu {
 
-		private int[] towerCosts;
 		private ArrayList<Button> menuButtons;
 		private int x, y, width, height, buttonAmount, columns, rows, padding;
 		String name;
@@ -90,10 +88,7 @@ public class UI {
 			this.height = height;
 			this.padding = (width - (columns * TILE_SIZE)) / (columns + 1);
 			this.menuButtons = new ArrayList<Button>();
-			towerCosts = new int[]{
-					TowerType.orangeTower.getCost(),
-					TowerType.greenTower.getCost()
-						};
+			
 		}
 
 		public boolean isButtonClicked(String buttonName) {
@@ -105,6 +100,7 @@ public class UI {
 			}
 			return false;
 		}
+		
 
 		private Button getButton(String buttonName) {
 			for (Button b : menuButtons) {

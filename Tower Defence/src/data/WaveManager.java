@@ -91,6 +91,10 @@ public class WaveManager {
 	public void spawnNextWave(){
 		timeSinceLastWave = timeBetweenWaves;
 	}
+
+	public CreepType[] getCreepTypes() {
+		return creepTypes;
+	}
 	
 	
 

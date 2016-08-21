@@ -1,11 +1,13 @@
 package data;
 
-import static helpers.Artist.*;
-
-import UI.Button;
+import static helpers.Artist.HEIGHT;
+import static helpers.Artist.TILE_SIZE;
+import static helpers.Artist.drawQuadTex;
 
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.opengl.Texture;
 
+import UI.Button;
 import UI.UI;
 import helpers.TextureBank;
 
@@ -15,8 +17,6 @@ public class Game {
 	private Player player;
 	private WaveManager waveManager;
 	private UI gameUI;
-
-	// Temp variables
 
 	public Game(int[][] map) {
 		grid = new TileGrid(map);
@@ -30,17 +30,16 @@ public class Game {
 
 	private void updateUI() {
 		gameUI.draw();
-		
+		int waveNumber = player.getWaveManager().getWaveNumber();
 		gameUI.getMenu("Info").getMenuButton("Gold").setCaption(""+Player.Cash);
-		gameUI.getMenu("Info").getMenuButton("Wave").setCaption(""+player.getWaveManager().getWaveNumber());
+		gameUI.getMenu("Info").getMenuButton("Wave").setCaption(""+ waveNumber);
 		gameUI.getMenu("Info").getMenuButton("Lives").setCaption(""+Player.Lives);
-		//gameUI.drawString(650 , 180, "Cash: " + Player.Cash);
-		//gameUI.drawString(650, 210, "Wave " + waveManager.getWaveNumber());
-		//NE SME OVO
-		//if(player.getWaveManager().getCurrentWave().getEnemyList().size() == 0){
 		
 		if(player.getWaveManager().getCurrentWave().isCompleted()){
 		int nextWaveIn = (int) (player.getWaveManager().getTimeBetweenWaves() - player.getWaveManager().getTimeSinceLastWave());
+			CreepType[] creepTypes = player.getWaveManager().getCreepTypes();
+			Texture temp = creepTypes[waveNumber % creepTypes.length].getTexture();	
+			gameUI.getMenu("Info").getMenuButton("Wave").setTexture(temp);
 			gameUI.drawString(650, 240,"" + nextWaveIn);
 		}
 		if (Mouse.next()) {
