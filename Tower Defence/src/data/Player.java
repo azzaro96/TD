@@ -1,6 +1,6 @@
 package data;
 
-import static helpers.Artist.HEIGHT;
+import static helpers.Artist.*;
 import static helpers.Artist.TILE_SIZE;
 
 import java.util.concurrent.CopyOnWriteArrayList;

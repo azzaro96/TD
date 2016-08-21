@@ -1,13 +1,16 @@
 package data;
 
-import static helpers.Artist.drawQuadTex;
+import static helpers.Artist.*;
 import static helpers.Artist.drawQuadTexRot;
 import static helpers.Clock.Delta;
 
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
+
+import helpers.TextureBank;
 
 public abstract class Tower implements Entity {
 
@@ -114,9 +117,23 @@ public abstract class Tower implements Entity {
 				y + type.texture.getImageHeight() / 2, width, height, enemies));
 	}
 
+	public boolean isHoveredOn(){
+		float mouseX = Mouse.getX();
+		float mouseY = HEIGHT - Mouse.getY() + 1;
+		
+		if (mouseX > x && Mouse.getX() < x + TILE_SIZE && mouseY > y
+				&& mouseY < y + TILE_SIZE) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void draw() {
 		drawQuadTex(baseTexture, x, y, width, height);
 		drawQuadTexRot(cannonTexture, x, y, width, height, angle);
+		if(isHoveredOn()){
+			drawQuadTex(TextureBank.Range, x - (type.range*2-TILE_SIZE)/2, y - (type.range*2-TILE_SIZE)/2, type.range*2, type.range*2);
+		}
 	}
 
 	public float getX() {
@@ -150,5 +167,5 @@ public abstract class Tower implements Entity {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-
+	
 }

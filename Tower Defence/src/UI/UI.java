@@ -9,6 +9,8 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 
+import data.Tile;
+
 
 public class UI {
 	private ArrayList<Button> buttonList;
@@ -100,6 +102,7 @@ public class UI {
 			}
 			return false;
 		}
+		
 		
 
 		private Button getButton(String buttonName) {

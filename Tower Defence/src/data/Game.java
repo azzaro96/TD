@@ -42,6 +42,9 @@ public class Game {
 			gameUI.getMenu("Info").getMenuButton("Wave").setTexture(temp);
 			gameUI.drawString(650, 240,"" + nextWaveIn);
 		}
+		
+		
+		
 		if (Mouse.next()) {
 			boolean mouseClicked = Mouse.isButtonDown(0);
 			if (mouseClicked) {
