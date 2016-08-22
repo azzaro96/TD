@@ -122,4 +122,9 @@ public class Projectile implements Entity {
 	public void setHeight(int height) {
 		this.height = height;
 	}
+	public boolean isAlive() {
+		return alive;
+	}
+	
+	
 }

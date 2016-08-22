@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Creep implements Entity {
 
 	private int width, height, currentCheckPoint;
-	private float  x, y, currentHealth;
+	private float x, y, currentHealth;
 	private Texture healthBar;
 	private float[] effectsTimer;
 	public Tile startTile;
@@ -25,7 +25,6 @@ public class Creep implements Entity {
 	private boolean first, alive;
 	private int[] directions;
 
-	
 	public Creep(CreepType creepType, Tile startTile, TileGrid grid) {
 		this.first = true;
 		this.alive = true;
@@ -126,7 +125,6 @@ public class Creep implements Entity {
 
 	public void update() {
 
-		
 		// pita da li je prvi put pozvana metoda
 		if (first)
 			first = false;
@@ -137,23 +135,34 @@ public class Creep implements Entity {
 					endReached();
 				} else
 					currentCheckPoint++;
-			}if (effectsTimer[CSEType.stun] > 0) {
+			}
+			if (effectsTimer[CSEType.stun] > 0) {
 				effectsTimer[CSEType.stun] -= Delta();
-				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (creepType.getSpeed() * (1 + CSEType.STUN.getSpeedModifier()));
-				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (creepType.getSpeed() * (1 + CSEType.STUN.getSpeedModifier()));
+				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection()
+						* (creepType.getSpeed() * (1 + CSEType.STUN.getSpeedModifier()));
+				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection()
+						* (creepType.getSpeed() * (1 + CSEType.STUN.getSpeedModifier()));
 				if (effectsTimer[CSEType.stun] < 0)
 					effectsTimer[CSEType.stun] = 0;
-			}
-			else if (effectsTimer[CSEType.slow] > 0){
-				effectsTimer[CSEType.slow] -= Delta();
-				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * (creepType.getSpeed() * (1 + CSEType.SLOWLVL1.getSpeedModifier()));
-				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * (creepType.getSpeed() * (1 + CSEType.SLOWLVL1.getSpeedModifier()));
-				if (effectsTimer[CSEType.slow] < 0)
-					effectsTimer[CSEType.slow] = 0;
-			} 
-			else {
+			} else if (effectsTimer[CSEType.slowlvl2] > 0) {
+				effectsTimer[CSEType.slowlvl2] -= Delta();
+				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection()
+						* (creepType.getSpeed() * (1 + CSEType.SLOWLVL2.getSpeedModifier()));
+				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection()
+						* (creepType.getSpeed() * (1 + CSEType.SLOWLVL2.getSpeedModifier()));
+				if (effectsTimer[CSEType.slowlvl2] < 0)
+					effectsTimer[CSEType.slowlvl2] = 0;
+			} else if (effectsTimer[CSEType.slowlvl1] > 0) {
+				effectsTimer[CSEType.slowlvl1] -= Delta();
+				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection()
+						* (creepType.getSpeed() * (1 + CSEType.SLOWLVL1.getSpeedModifier()));
+				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection()
+						* (creepType.getSpeed() * (1 + CSEType.SLOWLVL1.getSpeedModifier()));
+				if (effectsTimer[CSEType.slowlvl1] < 0)
+					effectsTimer[CSEType.slowlvl1] = 0;
+			} else {
 				// kretanje
-				
+
 				x += Delta() * checkPoints.get(currentCheckPoint).getxDirection() * creepType.getSpeed();
 				y += Delta() * checkPoints.get(currentCheckPoint).getyDirection() * creepType.getSpeed();
 
@@ -164,8 +173,10 @@ public class Creep implements Entity {
 
 	/**
 	 * 
-	 * @param s Trenutni Tile na kome se krip nalazi
-	 * @param dir jedinicni vektor smera u kom se trenutno krece
+	 * @param s
+	 *            Trenutni Tile na kome se krip nalazi
+	 * @param dir
+	 *            jedinicni vektor smera u kom se trenutno krece
 	 * @return
 	 */
 	private CheckPoint findNextC(Tile s, int[] dir) {
@@ -206,7 +217,8 @@ public class Creep implements Entity {
 
 	/**
 	 * 
-	 * @param Tile na kome se krip trenutno nalazi
+	 * @param Tile
+	 *            na kome se krip trenutno nalazi
 	 * @return dvodimenzionalni vektor smera
 	 */
 	private int[] findNextD(Tile s) {
@@ -245,11 +257,13 @@ public class Creep implements Entity {
 
 	/**
 	 * 
-	 * @param dmg
-	 * prima damage, ako umre daje igracu pare 
+	 * @param damage
+	 *            prima damage, ako umre daje igracu pare
 	 */
-	public void damage(int dmg) {
-		currentHealth -= dmg;
+	public void damage(float damage) {
+		if(effectsTimer[CSEType.dmg_amp] > 0)
+			damage *= 1+CSEType.DMG_AMP.getDamageModifier();
+		currentHealth -= damage;
 		if (currentHealth <= 0) {
 			die();
 			Player.modifyCash(creepType.getBounty());
@@ -280,13 +294,16 @@ public class Creep implements Entity {
 		this.currentHealth = health;
 	}
 
-	
-
-	
-
-	
-
-	
+	public boolean colisionWithCircle(float xCenter, float yCenter, int radius) {
+		float myXCenter = x + width / 2;
+		float myYCenter = y + height / 2;
+		float dist = (float) Math
+				.sqrt((myXCenter - xCenter) * (myXCenter - xCenter) + (myYCenter - yCenter) * (myYCenter - yCenter));
+		if (dist < radius) {
+			return true;
+		}
+		return false;
+	}
 
 	public float getX() {
 		return x;
@@ -303,14 +320,6 @@ public class Creep implements Entity {
 	public void setY(float y) {
 		this.y = y;
 	}
-
-	
-
-	
-
-	
-
-	
 
 	public Tile getStartTile() {
 		return startTile;

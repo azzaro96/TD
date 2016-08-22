@@ -8,7 +8,9 @@ public enum TowerType {
 	
 	greenTower(TextureBank.greenTowerBase, TextureBank.greenTowerCannon, ProjectileType.greenTowerProjectileLVL1, 100, 5, 1.2f),
 	orangeTower(TextureBank.orangeTowerBase, TextureBank.orangeTowerCannon,ProjectileType.orangeTowerProjectileLVL1, 100, 5, 1),
-	purpleTower(TextureBank.purpleTowerBase, TextureBank.purpleTowerCannon, ProjectileType.purpleTowerProjectileLVL1, 200, 25, 2);
+	purpleTower(TextureBank.purpleTowerBase, TextureBank.purpleTowerCannon, ProjectileType.purpleTowerProjectileLVL1, 200, 25, 2),
+	blueTower(TextureBank.blueTowerBase, TextureBank.blueTowerCannon, ProjectileType.blueTowerProjectileLVL1, 80, 35, 1.5f),
+	redTower(TextureBank.redTowerBase, TextureBank.redTowerCannon, ProjectileType.redTowerProjectileLVL1, 100, 0, 1.5f);
 	
 	Texture towerBase;
 	Texture towerCannon;

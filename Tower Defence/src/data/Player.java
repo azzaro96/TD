@@ -66,6 +66,8 @@ public class Player {
 			t.draw();
 			t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
 		}
+		
+		
 
 		// Mouse input
 		if (Mouse.isButtonDown(0) && !leftMouseButton) {

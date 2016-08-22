@@ -14,15 +14,19 @@ import helpers.TextureBank;
 
 public abstract class Tower implements Entity {
 
-	private float x, y, timeSinceLastShot, angle;
-	private int width, height;
-	private Creep target;
-	private Texture baseTexture, cannonTexture;
-	private CopyOnWriteArrayList<Creep> enemies;
-	public ArrayList<Projectile> projectiles;
+	protected float x, y, timeSinceLastShot, angle;
+	protected int width, height;
+	protected Creep target;
+	protected Texture baseTexture, cannonTexture;
+	protected CopyOnWriteArrayList<Creep> enemies;
+	protected CopyOnWriteArrayList<Projectile> projectiles;
 	private boolean targeted;
 	public TowerType type;
-
+	
+	public Tower(){
+		
+	}
+	
 	public Tower(TowerType type, Tile startTile, CopyOnWriteArrayList<Creep> enemies) {
 		baseTexture = type.towerBase;
 		cannonTexture = type.towerCannon;
@@ -35,7 +39,7 @@ public abstract class Tower implements Entity {
 		this.enemies = enemies;
 		this.targeted = false;
 		this.timeSinceLastShot = 0;
-		this.projectiles = new ArrayList<Projectile>();
+		this.projectiles = new CopyOnWriteArrayList<Projectile>();
 	}
 
 	// stavio sam da crta iz dva dela, on crta sam bbazu (izgleda)
@@ -64,7 +68,7 @@ public abstract class Tower implements Entity {
 		return xDistance + yDistance;
 	}
 
-	private boolean isInRange(Creep e) {
+	protected boolean isInRange(Creep e) {
 		float xDistance = Math.abs(e.getX() - x);
 		float yDistance = Math.abs(e.getY() - y);
 		if (xDistance <= type.getRange() && yDistance <= type.getRange())
@@ -85,6 +89,11 @@ public abstract class Tower implements Entity {
 
 	public void update() {
 		if (!targeted) {
+			for (Projectile p : projectiles) {
+				if (!p.isAlive()){
+					projectiles.remove(p);
+				}
+			}
 			target = acquireTarget();
 		} else {
 			if (isInRange(target)) {
@@ -108,6 +117,7 @@ public abstract class Tower implements Entity {
 				p.update();
 			}
 			draw();
+			
 		}
 	}
 

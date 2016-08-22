@@ -15,6 +15,12 @@ public class TextureBank {
 	purpleTowerBase = quickLoad("purpleTowerBase"),
 	purpleTowerCannon = quickLoad("purpleTowerCannon"),
 	purpleTowerFull = quickLoad("purpleTowerFull"),
+	blueTowerBase = quickLoad("blueTowerBase"),
+	blueTowerCannon = quickLoad("blueTowerCannon"),
+	blueTowerFull = quickLoad("blueTowerFull"),
+	redTowerBase = quickLoad("redTowerBase"),
+	redTowerCannon = quickLoad("redTowerCannon"),
+	redTowerFull = quickLoad("redTowerFull"),
 	
 	Range = quickLoad("Range"),
 	
@@ -22,6 +28,8 @@ public class TextureBank {
 	greenProjectile = quickLoad("greenBullet"),
 	orangeProjectile = quickLoad("bullet"),
 	purpleProjectile = quickLoad("purpleBullet"),
+	blueProjectile = quickLoad("blueTowerProjectile"),
+	redProjectile = quickLoad("redTowerProjectile"),
 	
 	//Kripovi
 	creepRose = quickLoad("creep"),
@@ -47,6 +55,7 @@ public class TextureBank {
 	healthBarGreen = quickLoad("healthBarGreen"),
 	healthBarYellow = quickLoad("healthBarYellow"),
 	healthBarRed = quickLoad("healthBarRed");
+	
 	
 	
 }

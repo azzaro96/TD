@@ -3,12 +3,12 @@ package data;
 public enum CSEType {
 	
 	SLOWLVL1(2, -0.2f, 1, true),
-	SLOWLVL2(2, -0.35f, 1, true),
+	SLOWLVL2(2, -0.5f, 1, true),
 	SLOWLVL3(2, -0.5f, 1, true),
 	STUN(0.15f, -1, 1, true),
-	DMG_AMP(0.5f, 1, 1.2f, false);
+	DMG_AMP(1.5f, 1, 0.5f, false);
 	
-	public static final int slow = 0, stun = 1, dmg_amp = 2;
+	public static final int slowlvl1 = 0, stun = 1, dmg_amp = 2, slowlvl2 = 3;
 	public static final CSEType[] EFFECTS = {SLOWLVL1, STUN, DMG_AMP, SLOWLVL2, SLOWLVL3};
 	public static final int numberOfTypes = EFFECTS.length;
 	

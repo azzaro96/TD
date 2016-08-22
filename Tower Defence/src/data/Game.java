@@ -17,12 +17,17 @@ public class Game {
 	private Player player;
 	private WaveManager waveManager;
 	private UI gameUI;
-
+	
+	// temp 
+	
+	
 	public Game(int[][] map) {
 		grid = new TileGrid(map);
 
 		waveManager = new WaveManager(10);
-
+		
+		
+		
 		player = new Player(grid, waveManager);
 		player.setup();
 		setupUI();
@@ -60,6 +65,14 @@ public class Game {
 					player.pickTower(new PurpleTower(TowerType.purpleTower, grid.getTile(2, 0),
 							waveManager.getCurrentWave().getEnemyList()));
 				}
+				if (gameUI.getMenu("TowerPicker").isButtonClicked("Blue Tower")) {
+					player.pickTower(new BlueTower(TowerType.blueTower, grid.getTile(2, 0),
+							waveManager.getCurrentWave().getEnemyList()));
+				}
+				if (gameUI.getMenu("TowerPicker").isButtonClicked("Red Tower")) {
+					player.pickTower(new RedTower(TowerType.redTower, grid.getTile(2, 0),
+							waveManager.getCurrentWave().getEnemyList()));
+				}
 				if (gameUI.getMenu("Info").isButtonClicked("Wave") && player.getWaveManager().getCurrentWave().isCompleted()) {
 					player.getWaveManager().spawnNextWave();
 				}
@@ -74,7 +87,8 @@ public class Game {
 		gameUI.getMenu("TowerPicker").addButton(new Button("Orange Tower","" + TowerType.orangeTower.getCost(), TextureBank.orangeTowerFull, 0, 0));
 		gameUI.getMenu("TowerPicker").addButton(new Button("Green Tower","" + TowerType.greenTower.getCost() , TextureBank.greenTowerFull, 0, 0));
 		gameUI.getMenu("TowerPicker").addButton(new Button("Purple Tower","" + TowerType.purpleTower.getCost() , TextureBank.purpleTowerFull, 0, 0));
-		
+		gameUI.getMenu("TowerPicker").addButton(new Button("Blue Tower","" + TowerType.blueTower.getCost() , TextureBank.blueTowerFull, 0, 0));
+		gameUI.getMenu("TowerPicker").addButton(new Button("Red Tower","" + TowerType.redTower.getCost() , TextureBank.redTowerFull, 0, 0));
 		gameUI.createMenu("Info", 640, 7*TILE_SIZE, TILE_SIZE, TILE_SIZE, 1, 0);
 		
 		
