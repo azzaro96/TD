@@ -36,6 +36,7 @@ public class TextureBank {
 	//MainMenu
 	splashScreen = quickLoad("splash"),
 	playButton = quickLoad("play"),
+	splashScreenEnd = quickLoad("splashEnd"),
 	
 	//In-Game Menu
 	towerPicker = quickLoad("towerPickerBG"),
