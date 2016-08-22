@@ -16,14 +16,12 @@ import helpers.TextureBank;
 
 public abstract class AoeTower extends Tower {
 
-	private boolean first;
 	protected CopyOnWriteArrayList<AoeProjectile> projectiles;
 	
 	public AoeTower(TowerType type, Tile startTile, CopyOnWriteArrayList<Creep> enemies) {
 		baseTexture = type.towerBase;
 		cannonTexture = type.towerCannon;
 		this.type = type;
-		this.first = true;
 		this.angle = 0f;
 		this.x = startTile.getX();
 		this.y = startTile.getY();

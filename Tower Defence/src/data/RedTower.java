@@ -11,7 +11,7 @@ public class RedTower extends AoeTower {
 
 	@Override
 	public void shoot(Creep target) {
-		spawnProjectile(ProjectileType.blueTowerProjectileLVL1);
+		spawnProjectile(ProjectileType.redTowerProjectileLVL1);
 
 	}
 

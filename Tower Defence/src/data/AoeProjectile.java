@@ -20,7 +20,7 @@ public class AoeProjectile {
 
 	// dotat arraylist wave u konstruktoru, izmenjena klasa tower
 	public AoeProjectile(ProjectileType type, float x, float y, int maxRange, float linger, CopyOnWriteArrayList<Creep> wave) {
-		texture = type.texture;
+		this.texture = type.texture;
 		this.type = type;
 		this.maxRange = maxRange;
 		this.x = x;
