@@ -6,7 +6,7 @@ public class TextureBank {
 	public static final Texture
 	
 	//Toweri
-	greenTowerBase = quickLoad("TowerBaseGreen"),
+	greenTowerBase = quickLoad("towerBaseGreen"),
 	greenTowerCannon = quickLoad("towerGunGreen"),
 	orangeTowerBase = quickLoad("TowerBase"),
 	orangeTowerCannon = quickLoad("TowerGun"),
@@ -30,7 +30,7 @@ public class TextureBank {
 	creepPurple = quickLoad("creepPurple"),
 	
 	//Mapa
-	land = quickLoad("land"),
+	land = quickLoad("Land"),
 	road = quickLoad("Road"),
 	
 	//MainMenu

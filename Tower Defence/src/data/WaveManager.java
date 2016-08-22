@@ -18,7 +18,9 @@ public class WaveManager {
 		this.difficulty = 1;
 		this.bountyIncrease = 0;
 		this.currentWave = null;
-
+		for (CreepType creepType : creepTypes) {
+			creepType.resetCreeps();
+		}
 		newWave();
 	}
 
@@ -94,6 +96,4 @@ public class WaveManager {
 		return creepTypes;
 	}
 	
-	
-
 }
