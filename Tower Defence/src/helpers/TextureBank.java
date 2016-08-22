@@ -6,10 +6,10 @@ public class TextureBank {
 	public static final Texture
 	
 	//Toweri
-	greenTowerBase = quickLoad("towerBaseGreen"),
-	greenTowerCannon = quickLoad("towerGunGreen"),
-	orangeTowerBase = quickLoad("TowerBase"),
-	orangeTowerCannon = quickLoad("TowerGun"),
+	greenTowerBase = quickLoad("greenTowerBase"),
+	greenTowerCannon = quickLoad("greenTowerCannon"),
+	orangeTowerBase = quickLoad("orangeTowerBase"),
+	orangeTowerCannon = quickLoad("orangeTowerCannon"),
 	greenTowerFull = quickLoad("greenTowerFull"),
 	orangeTowerFull = quickLoad("orangeTowerFull"),
 	purpleTowerBase = quickLoad("purpleTowerBase"),
@@ -25,21 +25,21 @@ public class TextureBank {
 	Range = quickLoad("Range"),
 	
 	//Projektili
-	greenProjectile = quickLoad("greenBullet"),
-	orangeProjectile = quickLoad("bullet"),
-	purpleProjectile = quickLoad("purpleBullet"),
-	blueProjectile = quickLoad("blueTowerProjectile"),
-	redProjectile = quickLoad("redTowerProjectile"),
+	greenProjectile = quickLoad("greenProjectile"),
+	orangeProjectile = quickLoad("orangeProjectile"),
+	purpleProjectile = quickLoad("purpleProjectile"),
+	blueProjectile = quickLoad("blueProjectile"),
+	redProjectile = quickLoad("redProjectile"),
 	
 	//Kripovi
-	creepRose = quickLoad("creep"),
+	creepRose = quickLoad("creepRose"),
 	creepBlue = quickLoad("creepBlue"),
 	creepBoss = quickLoad("creepBoss"),
 	creepPurple = quickLoad("creepPurple"),
 	
 	//Mapa
-	land = quickLoad("Land"),
-	road = quickLoad("Road"),
+	land = quickLoad("land"),
+	road = quickLoad("road"),
 	
 	//MainMenu
 	splashScreen = quickLoad("splash"),
