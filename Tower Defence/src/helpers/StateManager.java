@@ -1,8 +1,12 @@
 package helpers;
 
 import data.Game;
+import data.GameOver;
 import data.MainMenu;
 import data.Player;
+import static helpers.Clock.*;
+
+import org.newdawn.slick.SlickException;
 
 public class StateManager {
 	
@@ -31,6 +35,7 @@ public class StateManager {
 	public static GameState gameState = GameState.MAINMENU;
 	public static MainMenu mainMenu;
 	public static Game game;
+	public static GameOver gameOver;
 	
 	public static void update() {
 		switch (gameState) {
@@ -45,11 +50,14 @@ public class StateManager {
 			game.update();
 			if(Player.Lives <= 0){
 				game = null;
-				gameState = GameState.MAINMENU;
+				gameState = GameState.GAMEOVER;
 			}
 			break;
 		case GAMEOVER:
-			
+			if(gameOver == null)
+				gameOver = new GameOver();
+			gameOver.update();			
+			//gameState = GameState.MAINMENU;
 			break;
 		default:
 			break;
