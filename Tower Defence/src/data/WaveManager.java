@@ -14,7 +14,7 @@ public class WaveManager {
 		this.timeSinceLastWave = 0;
 		this.waveNumber = 0;
 		this.timeBetweenWaves = timeBetweenWaves;
-		this.difficultyFactor = 1.3f;
+		this.difficultyFactor = 1.15f;
 		this.difficulty = 1;
 		this.bountyIncrease = 0;
 		this.currentWave = null;

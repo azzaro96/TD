@@ -2,6 +2,8 @@ package data;
 
 import org.newdawn.slick.opengl.Texture;
 
+import helpers.TextureBank;
+
 import static helpers.Artist.*;
 
 public class Tile {
@@ -24,9 +26,9 @@ public class Tile {
 		else
 			occupied = true;
 		if (type == TileType.Land)
-			texture = land;
+			texture = TextureBank.land;
 		else
-			texture = road;
+			texture = TextureBank.road;
 	}
 	
 	

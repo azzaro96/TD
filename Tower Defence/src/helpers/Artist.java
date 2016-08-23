@@ -31,8 +31,6 @@ public class Artist {
 	public static final int WIDTH = 640 + TILE_SIZE, HEIGHT = 480;
 	
 	
-	public static Texture land, road, enemy;
-	
 	public static void beginSession() {
 
 		Display.setTitle("IMI Tower Deffence - Prepare to Fail Edition");
@@ -52,8 +50,8 @@ public class Artist {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
-		land = quickLoad("Land");
-	    road = quickLoad("Road");
+		//land = quickLoad("land");
+	    //road = quickLoad("road");
 	}
 	
 	public static boolean checkCollision(float x1, float y1, float width1, float height1, 
