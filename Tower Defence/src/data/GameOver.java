@@ -1,6 +1,6 @@
 package data;
 
-import static helpers.Artist.*;
+import static helpers.RenderingEngine.*;
 import static helpers.Clock.*;
 import org.newdawn.slick.opengl.Texture;
 

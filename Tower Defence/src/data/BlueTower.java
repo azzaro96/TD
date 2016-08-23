@@ -1,7 +1,7 @@
 package data;
 
 import java.util.concurrent.CopyOnWriteArrayList;
-import static helpers.Artist.*;
+import static helpers.RenderingEngine.*;
 
 public class BlueTower extends AoeTower {
 

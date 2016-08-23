@@ -8,7 +8,7 @@ import helpers.StateManager;
 import helpers.StateManager.GameState;
 import helpers.TextureBank;
 
-import static helpers.Artist.*;
+import static helpers.RenderingEngine.*;
 
 public class MainMenu {
 	

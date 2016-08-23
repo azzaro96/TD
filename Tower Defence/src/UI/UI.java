@@ -3,7 +3,7 @@ package UI;
 import java.awt.Font;
 import java.util.ArrayList;
 
-import static helpers.Artist.*;
+import static helpers.RenderingEngine.*;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.TrueTypeFont;

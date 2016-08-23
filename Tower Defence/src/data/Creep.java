@@ -4,7 +4,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import helpers.TextureBank;
 
-import static helpers.Artist.*;
+import static helpers.RenderingEngine.*;
 import static helpers.Clock.*;
 import java.util.ArrayList;
 

@@ -25,7 +25,7 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
-public class Artist {
+public class RenderingEngine {
 
 	public static final int TILE_SIZE = 32;
 	public static final int WIDTH = 640 + TILE_SIZE, HEIGHT = 480;

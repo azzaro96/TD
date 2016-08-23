@@ -2,7 +2,7 @@ package UI;
 
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.*;
-import static helpers.Artist.*;
+import static helpers.RenderingEngine.*;
 
 import java.awt.Font;
 public class Button {

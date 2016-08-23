@@ -1,8 +1,8 @@
 package data;
 
-import static helpers.Artist.TILE_SIZE;
-import static helpers.Artist.checkCollision;
-import static helpers.Artist.drawQuadTex;
+import static helpers.RenderingEngine.TILE_SIZE;
+import static helpers.RenderingEngine.checkCollision;
+import static helpers.RenderingEngine.drawQuadTex;
 import static helpers.Clock.Delta;
 
 

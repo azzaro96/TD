@@ -1,6 +1,6 @@
 package data;
 
-import static helpers.Artist.beginSession;
+import static helpers.RenderingEngine.beginSession;
 
 import org.lwjgl.opengl.Display;
 

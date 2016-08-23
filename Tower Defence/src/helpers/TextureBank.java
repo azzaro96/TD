@@ -1,7 +1,7 @@
 package helpers;
 
 import org.newdawn.slick.opengl.Texture;
-import static helpers.Artist.*;
+import static helpers.RenderingEngine.*;
 public class TextureBank {
 	public static final Texture
 	

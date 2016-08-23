@@ -1,7 +1,7 @@
 package data;
 
-import static helpers.Artist.*;
-import static helpers.Artist.TILE_SIZE;
+import static helpers.RenderingEngine.*;
+import static helpers.RenderingEngine.TILE_SIZE;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 

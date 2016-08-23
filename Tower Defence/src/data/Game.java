@@ -1,8 +1,8 @@
 package data;
 
-import static helpers.Artist.HEIGHT;
-import static helpers.Artist.TILE_SIZE;
-import static helpers.Artist.drawQuadTex;
+import static helpers.RenderingEngine.HEIGHT;
+import static helpers.RenderingEngine.TILE_SIZE;
+import static helpers.RenderingEngine.drawQuadTex;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;

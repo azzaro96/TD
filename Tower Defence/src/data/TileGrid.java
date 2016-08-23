@@ -1,5 +1,5 @@
 package data;
-import static helpers.Artist.*;
+import static helpers.RenderingEngine.*;
 
 public class TileGrid {
 	

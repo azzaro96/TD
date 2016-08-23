@@ -1,7 +1,7 @@
 package data;
 
-import static helpers.Artist.*;
-import static helpers.Artist.drawQuadTexRot;
+import static helpers.RenderingEngine.*;
+import static helpers.RenderingEngine.drawQuadTexRot;
 import static helpers.Clock.Delta;
 
 import java.util.ArrayList;

@@ -1,9 +1,9 @@
 package data;
 
-import static helpers.Artist.HEIGHT;
-import static helpers.Artist.TILE_SIZE;
-import static helpers.Artist.drawQuadTex;
-import static helpers.Artist.drawQuadTexRot;
+import static helpers.RenderingEngine.HEIGHT;
+import static helpers.RenderingEngine.TILE_SIZE;
+import static helpers.RenderingEngine.drawQuadTex;
+import static helpers.RenderingEngine.drawQuadTexRot;
 import static helpers.Clock.Delta;
 
 import java.util.ArrayList;
