@@ -50,6 +50,8 @@ public class TextureBank {
 	towerPicker = quickLoad("towerPickerBG"),
 	coin = quickLoad("coin"),
 	heart = quickLoad("heart"),
+	pause = quickLoad("pause"),
+	playB = quickLoad("playB"),
 	
 	//HealthBars
 	healthBarGreen = quickLoad("healthBarGreen"),

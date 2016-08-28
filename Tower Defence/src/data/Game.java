@@ -1,6 +1,7 @@
 package data;
 
 import static helpers.RenderingEngine.HEIGHT;
+import static helpers.Clock.*;
 import static helpers.RenderingEngine.TILE_SIZE;
 import static helpers.RenderingEngine.drawQuadTex;
 
@@ -9,6 +10,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import UI.Button;
 import UI.UI;
+import helpers.Clock;
 import helpers.TextureBank;
 
 public class Game {
@@ -76,6 +78,16 @@ public class Game {
 				if (gameUI.getMenu("Info").isButtonClicked("Wave") && player.getWaveManager().getCurrentWave().isCompleted()) {
 					player.getWaveManager().spawnNextWave();
 				}
+				if (gameUI.getMenu("Info").isButtonClicked("Pause")) {
+					if(Clock.paused == false) {
+						Pause();
+						gameUI.getMenu("Info").getMenuButton("Pause").setTexture(TextureBank.playB);
+					}
+					else {
+						Pause();
+						gameUI.getMenu("Info").getMenuButton("Pause").setTexture(TextureBank.pause);
+					}
+				}
 			}
 		}
 	}
@@ -95,6 +107,7 @@ public class Game {
 		gameUI.getMenu("Info").addButton(new Button("Wave","" + player.getWaveManager().getWaveNumber(), TextureBank.creepRose, 0, 0));
 		gameUI.getMenu("Info").addButton(new Button("Gold","" + Player.Cash, TextureBank.coin, 0, 0));
 		gameUI.getMenu("Info").addButton(new Button("Lives","" + Player.Lives, TextureBank.heart, 0, 0));
+		gameUI.getMenu("Info").addButton(new Button("Pause","", TextureBank.pause, 0, 0));
 	}
 
 	public void update() {
